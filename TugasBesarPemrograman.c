@@ -280,7 +280,7 @@ int transaksi (){
 //=======================================================================//
 //****************   Fungsi Untuk Menampilkan Saldo   *******************//
 //=======================================================================//
-// Nama Fungsi    : -                                                    //
+// Nama Fungsi    : ceksaldo                                             //
 // Input Argumen  : -                                                    //
 // Output Argumen : int *saldo                                           //
 // Deskripsi      : Menampilkan Sisa atau Banyak saldo yang dimiliki     //
