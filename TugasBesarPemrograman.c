@@ -32,7 +32,7 @@ void error_alert();                   // Merupakkan fungsi yang digunakan untuk 
 void menu_program();                  // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu program yang ada
 void menu_masuk();                    // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu masuk Login atau SignUp     
 void username();                      // Merupakan fungsi yang digunakan untuk meminta dan menampilkan USERNAME yang digunakan oleh user
-void email_pw();                      // Merupakan fungsi yang digunakan untuk meminta user untuk menginput Email dan Password yang di gunakan untuk Masuk ke dalam program
+void email_password();                // Merupakan fungsi yang digunakan untuk meminta user untuk menginput Email dan Password yang di gunakan untuk Masuk ke dalam program
 
 // fungsi main () adalah kepala dari program ini, dimana program akan di eksekusi oleh fungsi main ini.
 int main (){
@@ -431,14 +431,14 @@ void menu_masuk(){
         //pada case 1 ini program akan menampilakn tampilan seperti berikut ini, dan meminta user untuk mengisi dat ayang sudah di inputkan sebagai pendukung  untuk menu login
         case 1:
             printf ("\nLogin.....\n=============================\n");
-            email_pw();
+            email_password();
             break;
 
         //pada case 2 ini program akan menampilakn tampilan seperti berikut ini, dan meminta user untuk mengisi dat ayang sudah di inputkan sebagai pendukung  untuk menu SignUp
         case 2:
             printf ("\nSignUp....\n==========================\n");
             printf ("LENGKAPI BIODATA\n");
-            email_pw();
+            email_password();
             break;
         //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
         default:
@@ -478,7 +478,7 @@ void username(){
 //=======================================================================//
 //************   Fungsi Untuk Meminta Email & Password   ****************//
 //=======================================================================//
-// Nama Fungsi    : email_pw                                             //
+// Nama Fungsi    : email_password                                       //
 // Input Argumen  : int email & char password                            //
 // Output Argumen : -                                                    //
 // Deskripsi      : Memasukkan email dan password yang diminta.          //
@@ -490,7 +490,7 @@ void username(){
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
 //=======================================================================// 
-void email_pw(){
+void email_password(){
         printf ("Buat Email Anda           :");
         scanf  ("%s",&email [50]);
         printf ("Buat Password untuk login :");
