@@ -1,5 +1,7 @@
 //Header yang di gunakan untuk standar input output pada bahasa C
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 //Dekalarasi variable global yang di gunakan pada program manjemen keuangan ini:
 int masukan [10];                     //variabel masukan      => berfungsi untuk menyimpann masukan saldo yang di inputkan oleh user
@@ -9,43 +11,72 @@ int kategori;                         //variabel kategori     => berfungsi untuk
 int pilihanmasuk;                     //variabel pilihanmasuk => berfungsi untuk menyimpan pilihan yang dimasukan oleh user untuk di proses ke switch case pada pemilihan menu login
 int pilihanmenu;                      //variabel kategori     => berfungsi untuk menyimpan pilihan yang dimasukan oleh user untuk di proses ke switch case pada pemilihan menu program
 int *saldo;                           //pointer saldo         => berfungsi untuk menyimpan nilai sisa dari hasil setelah saldo di kurang dengan adanya proses transaksi secara berulang kali
-int harga [10];                       //variabel harga        => berfungsi untuk menyimpan masukkan harga dari transaksi yang di inputkan oleh user pada menu transaksi
+int harga;                            //variabel harga        => berfungsi untuk menyimpan masukkan harga dari transaksi yang di inputkan oleh user pada menu transaksi
 int total;                            //variabel total        => berfungsi untuk menyimpan hasil dari proses pengurangan saldo setelah user melakukan proses transaksi, dimana setelah proses ini variabel total ini akan menyimpan sisa dari saldo terbaru yang di miliki oleh user
 int milih;                            //variabel milih        => berfungsi untuk menyimpan pilihan yang dimasukkan oleh user untuk di proses ke switch case pada pemilihan jenis dari transaksi yang ingin di lakukan oleh user pada menu transaksi yang sudahh terdapat pada program
-int Det_Transaksi [50];               //Variabel Det_Transaksi=> berfunsgi untuk menyimpan masukan dari info transaksi yang di masukkan user jika pada melihilan jenis transaksi user memilih kategori lainnya sehingga user di minta untuk memasukkan manual informasi dari transaksi yang di lakukan.
+char Det_Transaksi [50];              //Variabel Det_Transaksi=> berfunsgi untuk menyimpan masukan dari info transaksi yang di masukkan user jika pada melihilan jenis transaksi user memilih kategori lainnya sehingga user di minta untuk memasukkan manual informasi dari transaksi yang di lakukan.
 int i;                                //variabel i            => berfungsi untuk menyimpan nilai increment pada proses looping yang terdapat pada fungsi menu,dimana variabel ini akan melakukan pengulangan proses transaksi dengan nilai saldo yang di proses merupakan sisa dari saldo transaksi yang dilakukan oleh user sebelumnya.
 char email [50];                      //variabel email        => berfungsi untuk menyimpan inputan email yang dimasukkan oleh user
 char password [50];                   //variabel password     => berfungsi untuk menyimpan inputan password yang dimasukkan oleh user
 char nama [50];                       //variabel nama         => berfungsi untuk menyimpan inputan nama yang dimasukkan oleh user
 char passwordcoba [50];               //variabel passwordcoba => berfungsi untuk menyimpan inputan password dari user yang akan di gunakan untuk mengecek apakah yang sedang login adalah pemilik akun dari program yang sedang berjalan
 char Det_Masukan;                     //variabel Det_Masukan  => berfungsi untuk menyimpan inputan Detail Informasi Pemasukan saldo yang di inputkan oleh user.
-char nomortlp [50]                    //variabel nomortlp     => berfungsi untuk menyimpan inputan Nomor Telepon user sebagai informasi tambahan dalam membuat email.
-    
-//Deklarasi fungsi fungsi yang digunkan pada program manajemen keuangan
-int pemasukan ();                     // Merupakkan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan pemasukan saldo user.
-int transaksi ();                     // Merupakkan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan transaksi(pengeluaran) user.
-void ceksaldo ();                     // Merupakkan fungsi yang digunakan untuk Menampilkan keselurahan saldo terbaru yang di miliki oleh user.
-void konfirmasi ( char password1);    // Merupakan fungsi yang di gunakan untuk melakukan pengecekkan apakah yang sedang menjalankan program adalah user yang memiliki akun dari program ini , dengan membbuat parameter char password untuk menyimpan inputan password yang dibuat oleh user pada saat pertama kali memasuki program
-void menu ();                         // Merupakan fungsi yang di gunakan untuk menampilakan berbagai isi dari MENU , yaitu di dalamnya terdapat menu transaksi dan kaetgori transaksi serta menampilkan pilihan utnuk user melakukan pengecekkan sisa saldo yang di miliki oleh user sendiri
-void input_transaksi();               // Merupakkan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah transaksi yang di lakukan oleh user
-void input_masukan();                 // Merupakkan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah masukkan yang di lakukan oleh user
-void error_alert();                   // Merupakkan fungsi yang digunakan untuk menampilan pemberitahuan ketika user menginputkan pilihan yang salah pada setiap switch case.
-void menu_program();                  // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu program yang ada
-void menu_masuk();                    // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu masuk Login atau SignUp     
-void username();                      // Merupakan fungsi yang digunakan untuk meminta dan menampilkan USERNAME yang digunakan oleh user
-void email_password();                // Merupakan fungsi yang digunakan untuk meminta user untuk menginput Email dan Password yang di gunakan untuk Masuk ke dalam program
+int hargaBarangDiinginkan;            //variabel hargaBarangDiinginkan => berfungsi untuk menyimpan harga barang 
+int pilihanTarget;                    //variabel pilihanTarget => berfungsi untuk menyimpan pilihan dari kategori target pada bagian Wishlist
+char namaTarget[50];                  //variabel namaTarget    => berfungsi untuk menyimpan deskripsi dari target barang yang diinginkan pada bagian Wishlist 
+char usernameCoba [15];               //variabel usernameCoba  => berfungsi untuk menyimpan username yang dilogin oleh user       
+int pilihanMenu;                      //variable pilihanMenu   => berfungsi untuk menyimpan pilihan untuk user apakah user ingin menambah wishlist atau kembali ke menu utama 
+int saldoDimiliki;                    //variabel saldoDimiliki => berfungsi untuk menyimpan saldo yang dituliskan dari pada akunBank, akunCreditCard, cash
 
+//Membuat Struct User dengan member nama dan no_telp
+struct User{
+	char nama[30];
+	char no_telp[12];
+    char username[15];
+}; 
+
+//Mendeklarasikan variabel u1 pada struct User
+struct User u1;
+
+//Deklarasi fungsi fungsi yang digunkan pada program manajemen keuangan
+int pemasukan ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan pemasukan saldo user.
+int transaksi ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan transaksi(pengeluaran) user.
+void ceksaldo ();                                    // Merupakan fungsi yang digunakan untuk Menampilkan keselurahan saldo terbaru yang di miliki oleh user.
+void konfirmasi (struct User u1,char *password1);    // Merupakan fungsi yang di gunakan untuk melakukan pengecekkan apakah yang sedang menjalankan program adalah user yang memiliki akun dari program ini , dengan membbuat parameter char password untuk menyimpan inputan password yang dibuat oleh user pada saat pertama kali memasuki program
+void menu ();                                        // Merupakan fungsi yang di gunakan untuk menampilakan berbagai isi dari MENU , yaitu di dalamnya terdapat menu transaksi dan kaetgori transaksi serta menampilkan pilihan utnuk user melakukan pengecekkan sisa saldo yang di miliki oleh user sendiri
+void input_transaksi();                              // Merupakan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah transaksi yang di lakukan oleh user
+void input_masukan();                                // Merupakan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah masukkan yang di lakukan oleh user
+void error_alert();                                  // Merupakan fungsi yang digunakan untuk menampilan pemberitahuan ketika user menginputkan pilihan yang salah pada setiap switch case.
+void menu_program();                                 // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu program yang ada
+void menu_masuk();                                   // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu masuk Login atau SignUp     
+void username(struct User u1, char *nm);             // Merupakan fungsi yang digunakan untuk meminta dan menampilkan USERNAME yang digunakan oleh user
+void email_pw();                                     // Merupakan fungsi yang digunakan untuk meminta user untuk menginput Email dan Password yang di gunakan untuk Masuk ke dalam program
+void record(struct User u1, char file[]);            // Merupakan fungsi yang digunakan untuk memperlihatkan track record dari file "Record.dat"
+void wish_list();                                    // Merupakan fungsi yang digunakan untuk menambahkan daftar barang yang diinginkan oleh user
+void menupil ();                                     // Merupakan fungsi yang digunakan untuk pilihan apakah ingin menambah wishlist atau kembali ke menu utama
+void daftarwishlist();                               // Merupakan fungsi yang digunakan untuk memilih kategori dari barang wishlist yang diinginkan 
+int DanaDarurat (int *saldo);                        // Merupakan fungsi yang digunakan untuk membantu User dalam mempersiapkan DanaDarurat
+int inputSaldo(char x[]);                            // Merupakan fungsi yang digunakan untuk menginput saldo dengan akun Bank, akun CreditCard, akun Cash
+
+//Deklarasi variabel namaFile  "Record.dat" untuk menyimpan data nama dan nomor telepon"
+char namaFile[] = "Record.dat";
+//Deklarasi pointer *pw sebagai pointer kepada alamat agar "Record.dat" bisa dipassing kepada fungsi konfirmasi)
+char *pw = password;
+//Assign pointer *saldo kepada alamat variabel dari saldoDimiliki
+int *saldo = &saldoDimiliki;
 // fungsi main () adalah kepala dari program ini, dimana program akan di eksekusi oleh fungsi main ini.
 int main (){
     //pemanggilan fungsi untuk pilihan dan pengisisan langkah awal untuk memasuki progrm
     menu_masuk();
     //pemanggilan fungsi untuk membuat dan menampilkan username
-    username();
+    username(u1, namaFile);
     //pemanggilan fungsi untuk konfrimasi password
-    konfirmasi(password[50]);
+    konfirmasi(u1, pw);
     //pemanggilan fungsi untuk menu program
-    menu_program();
+    menu_program(); 
+    
 }
+
 //=======================================================================//
 //*************  Fungsi Untuk Meminta Konirmasi Password   **************//
 //=======================================================================//
@@ -62,19 +93,19 @@ int main (){
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
 //=======================================================================//
-void konfirmasi (char password1){
-
-    //bagian ini akan menampilkan pilihan dari program yang sedang di akses oleh user
-    printf ("Cek Saldo...\n");
+void konfirmasi (struct User u1,char *password1){
     pass:
-
     // bagian ini akan menampilkan perintah dan meminta user untuk memasukkan ulang password yang sudah di buatnya pada pertama kali login untuk mengkonvirmasi bahwa yang sedang mengakses program ini adalah pemilik akun dari program yang sedang dijalankan,
+    if (strcmp(usernameCoba, u1.username)==0){
+        printf (" ");
+    } else {
+        printf ("Username salah");
+        goto pass;
+    }
     printf ("\nMasukan Password untuk mengetahui Jumlah SALDO Anda :");
-    scanf  ("%s",&passwordcoba [50]);
-
+    scanf  ("%s",&passwordcoba[50]);
     // melakukan pengecekkan apabila password yang baru saja di masukkan untuk mengkonvirmasi sama dengan password yang di buat pertama kali yang dibuat oleh user, maka proses akan di lanjutkan pada program selanjutnya.
-    if (passwordcoba [50] == password1)
-    {
+    if ( strcmp(passwordcoba, password) == 0){
         printf ("Password Benar!!\n");
     }
     // jika password yang di masukan salah , maka program akan menampilakn pemberitahuan pasword salah
@@ -85,6 +116,7 @@ void konfirmasi (char password1){
         goto pass;
     }
 }
+
 //=======================================================================//
 //************   Fungsi Untuk Menampilkan Menu Pilihan   ****************//
 //=======================================================================//
@@ -104,37 +136,60 @@ void konfirmasi (char password1){
 void menu (){
 
     //Pada bagian ini user diminta untuk memasukkan jumlah saldo yang di miliki sebagai starter dalam program manajemen keuangan ini
-    printf   ("Masukan Saldo :");
-    scanf    ("%d",& p);
-
+    printf   ("Masukan Saldo\n");
     //penginisialisain bahwa pointer saldo yang sudah di buat sebelumnya disimpan pada variabel p
-    saldo = &p;
-      ktgri:
-  //pada bagian looping ini , disini berfungsi untuk menjalankan proses dari program manjemen keungan ini, dimana setiap dilakukan proses transaksi atau cek saldo maka yang akan di proses dan di tampilkan adalah saldo terbaru yang merupakan hasil dari proses sebelumnya yang di lakukan oleh user seperti proses transaksi yang dapat merubah banya saldo, sehingga program dapat di jalankan sesuai ekspetasi yang di inginkan oleh penulis programnya
-  for(i=0; i<1; i++){
-    printf ("pilihan : \n1.Transaksi\n2.Pemasukan\n3.CekSaldo\nMasukan Pilihan Anda:");
-    scanf  ("%d",&kategori);
+    inputSaldo(namaFile);
 
-    //pada menu switch case bagian ini , merupakan lanjutan proses dari pilihan user yang di inputkan sebelumnya pada pilihan pada MENU program.
-    switch (kategori)
-    {
-        // pada case 1 ini, karena user milih program transaksi maka program akan menampilkan menu kategori dan user akan diminta untuk memilih kategori untuk transaksi yang di lakukan oleh user.
-        case 1:
-        transaksi();
-        goto ktgri;
-        break;
-    //pada case 2 dari menu switch (kategori), karena user memilih menu untuk mengecek saldo maka program akan menampilkan sisa saldo yang dimiliki oleh user saat menu ini di akses
-    case 2:
-            pemasukan();
-            goto ktgri;
-            break;
-    case 3:
-            ceksaldo();
-            goto ktgri;
-            break;
+    //Mendeklarasikan label ktgri untuk menampilkan kategori menu yang ingin dipilih
+    ktgri:
+    //pada bagian looping ini , disini berfungsi untuk menjalankan proses dari program manjemen keungan ini, dimana setiap dilakukan proses transaksi atau cek saldo maka yang akan di proses dan di tampilkan adalah saldo terbaru yang merupakan hasil dari proses sebelumnya yang di lakukan oleh user seperti proses transaksi yang dapat merubah banya saldo, sehingga program dapat di jalankan sesuai ekspetasi yang di inginkan oleh penulis programnya
+    for(i=0; i<1; i++){
+        printf ("pilihan : \n1. Transaksi\n2. Pemasukan\n3. Cek Saldo\n4. Dana Darurat\n5. Log Record\n6. Wihslist\n7. EXIT\nMasukan Pilihan Anda:");
+        scanf  ("%d",&kategori);
+
+        //pada menu switch case bagian ini , merupakan lanjutan proses dari pilihan user yang di inputkan sebelumnya pada pilihan pada MENU program.
+        switch (kategori)
+        {
+            // pada case 1 ini, karena user milih program transaksi maka program akan menampilkan menu kategori dan user akan diminta untuk memilih kategori untuk transaksi yang di lakukan oleh user.
+            case 1:
+                transaksi();
+                goto ktgri;
+                break;
+            //pada case 2 dari menu switch (kategori), karena user memilih menu untuk mengecek saldo maka program akan menampilkan sisa saldo yang dimiliki oleh user saat menu ini di akses
+            case 2:
+                pemasukan();
+                goto ktgri;
+                break;
+            //pada case 3 user akan mengecek saldo yang dimiliki sekarang baik sebelum melakukan input transaksi dan input pemasukan maupun setelahnya
+            case 3:
+                ceksaldo();
+                goto ktgri;
+                break;
+            case 4:
+                DanaDarurat(saldo);
+                goto ktgri;
+                break;
+            case 5:
+                record(u1, namaFile);
+                goto ktgri;
+                break;
+            case 6:
+                wish_list();
+                menupil  ();
+                goto ktgri;
+                break;
+            case 7:
+                exit (0);
+                break;
+            default:
+                printf ("Silahkan ketik ulang pilihan anda");
+                goto ktgri;
+                break;
+        }
     }
-  }
+    system ("clear");
 }
+
 //=======================================================================//
 //**************   Fungsi Untuk Menginputkan Pemasukan   ****************//
 //=======================================================================//
@@ -155,7 +210,7 @@ int pemasukan (){
 
     ktgrimasuk:
     printf ("Kategori Pemasukan \n");
-    printf ("1. Sewa\n2.Sumbangan\n3. Dividen\n4. Pengembalian Dana\n5. Upah\n6. Penjualan\n7. Bonus\n8.Voucher\n9. Lainnya...\n");
+    printf ("1. Sewa\n2. Sumbangan\n3. Dividen\n4. Pengembalian Dana\n5. Upah\n6. Penjualan\n7. Bonus\n8. Voucher\n9. Lainnya...\n");
     printf ("Masukan Kategori Pemasukan yang anda miliki =>");
     scanf  ("%d",&ktgrimasukan);
 
@@ -200,12 +255,14 @@ int pemasukan (){
            error_alert();
         goto ktgrimasuk;
         break;
+        system ("clear");
     }
     total  = *saldo + masukan[i];
     *saldo = total;
 
     return total;
 }
+
 //=======================================================================//
 //***********   Fungsi Untuk Menampilkan Pilihan transaksi  *************//
 //=======================================================================//
@@ -272,16 +329,18 @@ int transaksi (){
             printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
             printf   ("=========================================");
             break;
+            system ("clear");
         }
-    total  = *saldo - harga[i];
+    total  = *saldo - harga;
     *saldo = total;
 
     return total;
 }
+
 //=======================================================================//
 //****************   Fungsi Untuk Menampilkan Saldo   *******************//
 //=======================================================================//
-// Nama Fungsi    : ceksaldo                                             //
+// Nama Fungsi    : -                                                    //
 // Input Argumen  : -                                                    //
 // Output Argumen : int *saldo                                           //
 // Deskripsi      : Menampilkan Sisa atau Banyak saldo yang dimiliki     //
@@ -298,6 +357,7 @@ void ceksaldo (){
             printf ("Sisa Saldo Anda Adalah  :Rp. %d \n" , *saldo);
             //Pointer saldo akan menyimpan sisa saldo terbaru yang akan di proses kembali apabila ada proses transaksi lagi .
 }
+
 //=======================================================================//
 //**************       Fungsi Untuk Input Pemasukan      ****************//
 //=======================================================================//
@@ -319,6 +379,7 @@ void input_masukan(){
         printf ("Masukan Detail Pemasukan:");
         scanf   (" %[^\n]",&Det_Masukan);
 }
+
 //=======================================================================//
 //**************       Fungsi Untuk Input Transaksi      ****************//
 //=======================================================================//
@@ -335,15 +396,16 @@ void input_masukan(){
 // Kelas A                                                               // 
 //=======================================================================// 
 void input_transaksi(){
-        printf ("Masukkan Total Transaksi anda :");
-        scanf  ("%d",&harga [i]);
-        printf ("Masukan Jenis Transaksi :");
-        scanf  (" %[^\n]",&Det_Transaksi);
+        printf ("Masukkan Total Transaksi anda: ");
+        scanf  ("%d",&harga );
+        printf ("Deskripsi: ");
+        scanf  ("%s",&Det_Transaksi[50]);
 }
+
 //=======================================================================//
 //**************   Fungsi Untuk Menampilkan Pesan Eror   ****************//
 //=======================================================================//
-// Nama Fungsi    : error_alert                                          //
+// Nama Fungsi    : -                                                    //
 // Input Argumen  : -                                                    //
 // Output Argumen : -                                                    //
 // Deskripsi      : Menampilkan Pemberitahuan Bahwa user memasukan input //
@@ -360,6 +422,7 @@ printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
 printf   ("=========================================");
 //goto ktgri; syntax ini akan mengembalikan user ke menu pemilihan kategori untu memilih kembali menu program jika pada bagian ini user sudah melakukan inputan sesuai dengan apa yang di minta oleh program,
 }
+
 //=======================================================================//
 //*************  Fungsi Untuk Menampilkan Pilihan Masuk   ***************//
 //=======================================================================//
@@ -376,30 +439,30 @@ printf   ("=========================================");
 // Kelas A                                                               //
 //=======================================================================// 
 void menu_program(){
-        pilih:
-            puts   ("\nMenu Program");
-            puts   ("============");
-            puts   ("1. MENU");
-            printf ("Masukan Pilihan Anda :");
-            scanf  ("%d",&pilihanmenu);
+    pilih:
+        puts   ("\nMenu Program");
+        puts   ("============");
+        puts   ("1. MENU");
+        printf ("Masukan Pilihan Anda :");
+        scanf  ("%d",&pilihanmenu);
 
-        // pada switch case bagian ini , disini akan memproses dari inputan yang sudah dimasukkan oleh user pada proses pemiihan pemilihan menu sebelumnya dan mengantarkan program pada fungsi yang merupakan panggilan dari pilihan yang di inputkan oleh user.
-        switch (pilihanmenu)
-        {
-            //pada case 1 ini, program akan memanggil fungsi yang sudah dibuat yaitu fungsi yang bernama void menu();
+    // pada switch case bagian ini , disini akan memproses dari inputan yang sudah dimasukkan oleh user pada proses pemiihan pemilihan menu sebelumnya dan mengantarkan program pada fungsi yang merupakan panggilan dari pilihan yang di inputkan oleh user.
+    switch (pilihanmenu)
+    {
+        //pada case 1 ini, program akan memanggil fungsi yang sudah dibuat yaitu fungsi yang bernama void menu();
         case 1:
             menu ();
             break;
 
-            //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
+        //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
         default:
             error_alert();
-
             //goto pilih; dimana syntax ini akan membawa user kembali ke menu pemilihan program untuk menginputkan pilihan yang benar, ini akan terus berulang hingga user menginputkan pilihan yang benar sesaui apa yang sudah ditampilkan pada menu pilihan.
             goto pilih;
             break;
-        }
+    }
 }
+
 //=======================================================================//
 //***************  Fungsi Untuk Menampilkan Menu Masuk  *****************//
 //=======================================================================//
@@ -408,7 +471,7 @@ void menu_program(){
 // Output Argumen : -                                                    //
 // Deskripsi      : Fungsi ini di buat unutk menampilkan menu program    //
 //                  yang ada pada project ini, dimana disini sudah dibuat//
-//                  pilihan yaitu ada program yang disediakan seperti    //
+//                   pilihan yaitu ada program yang disediakan seperti    //
 //                  Transaksi, Pemasukan, Cek saldo , dimana pada masing //
 //                  masing pilihan terdapat lagi kategori seperti        //
 //                  Kategori Transaksi, Kategori Pemasukan dll.          //
@@ -432,14 +495,14 @@ void menu_masuk(){
         //pada case 1 ini program akan menampilakn tampilan seperti berikut ini, dan meminta user untuk mengisi dat ayang sudah di inputkan sebagai pendukung  untuk menu login
         case 1:
             printf ("\nLogin.....\n=============================\n");
-            email_password();
+            email_pw();
             break;
 
         //pada case 2 ini program akan menampilakn tampilan seperti berikut ini, dan meminta user untuk mengisi dat ayang sudah di inputkan sebagai pendukung  untuk menu SignUp
         case 2:
             printf ("\nSignUp....\n==========================\n");
             printf ("LENGKAPI BIODATA\n");
-            email_password();
+            email_pw();
             break;
         //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
         default:
@@ -448,56 +511,96 @@ void menu_masuk(){
             goto masuk;
             break;
         }
+    system ("clear");
 }
+
 //=======================================================================//
-//*********   Fungsi Untuk Membuat dan Menampilkan USERNAME   ***********//
+//**************  Fungsi Untuk Menginput Nama dan No.Tel ****************//
 //=======================================================================//
-// Nama Fungsi    : username                                             //
-// Input Argumen  : int nama                                             //
+// Nama Fungsi    : username            				 //
+// Input Argumen  : u1.nama, u1.no_telp                                  //
+// Passing Argumen: struct User u1, char file[]                          //
+// Output Argumen : u1.nama, u1.no_telp                                  //
+// Deskripsi      : Fungsi ini ditujukan untuk menginput Nama User dan 	 //
+//					No.Telp User			 //
+// Versi : 1.0                                      Rev. 0               //
+// Tgl: 30-11-2020                                  Tgl: 30-11-2020      //
+// Gede Rico Wijaya - 2005551091                                         //
+// Kelas A                                                               //
+//=======================================================================//
+void username(struct User u1, char file[]){
+	//Instruksi dari input nama 
+	printf ("Ketik nama anda :\n");
+    scanf  ("%s", u1.nama);//menyimpan nilai input dengan akses member nama dengan variabel u1
+	//Instruksi dari input nomor telepon
+	printf ("Ketik nomor telepon anda: \n");
+	scanf  ("%s", u1.no_telp); //menyimpan nilai input dengan akses member no_telp dengan variabel u1
+	//Mendeklarasikan Tipe Data FILE dengan pointer rc
+	FILE *rc; //pointerReport pada file Record.dat
+	//Assign rc untuk membuka file binary Record.dat dan menggunakan mode "rb" untuk membuka non-text file
+    rc = fopen (file, "ab");
+	//Menuliskan hasil inputan kepada file Record.dat
+    fprintf (rc, "%s\t%s\t", u1.nama, u1.no_telp);
+	//Menuliskan data kepada file Record.dat
+    fwrite (&u1, sizeof(u1), 1, rc);
+	//Menggunakan fungsi fclose untuk menutup file "Record.dat" agar tidak diproses lagi
+	fclose (rc);
+
+	//untuk menghilangkan perintah-perintah dari layar terminal
+    system ("clear");
+}
+
+//=======================================================================//
+//************   Fungsi Untuk Meminta Email & Password   ****************//
+//=======================================================================//
+// Nama Fungsi    : email_pw                                             //
+// Input Argumen  : int email & char password                            //
 // Output Argumen : -                                                    //
-// Deskripsi      : Meminta user untuk memasukan USERNAME.               //
-//                  Setelah user melakukan input USERNAME , selanjutnya  //
-//                  USERNAME ini akan di tampilkan bersamaan pada bagian //
-//                  dimana Program memberikan ucapan SELAMAT DATANG      //
-//                                                                       //
+// Deskripsi      : Memasukkan email dan password yang diminta.          //
+//                  dimana nanti password yang di buat pertama kali      //
+//                  akan di simpan dan di gunakan kembali saat melakukan //
+//                  konfirmasi user .                                    //
 // Versi : 1.0                                      Rev. 0               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
 //=======================================================================// 
-void username(){
-    // Pada bagian ini sistem akan meminta agar user memasukkan nama atau username sebagai inisial pengguna untuk memngakses program selanjutnya
-    printf ("\n==================\n");
-    printf ("TENTUKAN NAMA PENGGUNA\n");
-    printf ("Masukan Nama Pengguna  :");
-    scanf  (" %[^\n]",&nama);
-    // Pada bagian ini program akan menampilkan ucapan selamat datang untuk pertama kalinya dengan menyertakan username yang sudah di tentukan oleh user pada proses sebelumnya.
-    printf ("\nHALLO %s....\n",nama);
-    printf ("Selamat datang... :)\n");
-    printf ("==================\n");
-}
-//=======================================================================//
-//************   Fungsi Untuk Meminta Email & Password   ****************//
-//=======================================================================//
-// Nama Fungsi    : email_password                                       //
-// Input Argumen  : int email & char password                            //
-// Output Argumen : -                                                    //
-// Deskripsi      : Memasukkan email, password, dan nomor telepon yang   //
-//                  diminta. dimana nanti password yang di buat pertama  //
-//                  kali akan di simpan dan di gunakan kembali saat      //
-//                  melakukan konfirmasi user .                          //
-// Versi : 1.0                                      Rev. 1               //
-// Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
-// I Gede Himawan - 2005551108                                           //
-// Kelas A                                                               //
-//=======================================================================// 
-void email_password(){
+void email_pw(){
         printf ("Buat Email Anda           :");
         scanf  ("%s",&email [50]);
         printf ("Buat Password untuk login :");
         scanf  ("%s",&password [50]);
-        printf ("Masukkan Nomor telepon    :");
-        scanf  ("%s",&nomortlp [50]);
+        system ("clear");
+}
+
+//=======================================================================//
+//**************  Fungsi Untuk Menampilkan Record User   ****************//
+//=======================================================================//
+// Nama Fungsi    : record                                               //
+// Passing Argumen: struct User u, char file[]                           //
+// Output Argumen : u1.nama u1.no_telp                                   //
+// Deskripsi      : Fungsi ini ditujukan untuk menampilkan data yang     //
+//                  dimasukan oleh user yaitu berupa nama dan no.telp    //
+//                  yang disimpan pada file Record.dat                   //
+// Versi : 1.0                                      Rev. 0               //
+// Tgl: 30-11-2020                                  Tgl: 30-11-2020       //
+// Gede Rico Wijaya - 2005551091                                         //
+// Kelas A                                                               //
+//=======================================================================//
+void record(struct User u1, char file[] ){
+    //Mendeklarasikan tipe data file dengan pointer *rc yang bertujuan untuk pointer pada file "Record.dat"
+    FILE *rc;
+    //Assign rc untuk membuka file binary Record.dat dan menggunakan mode "rb" untuk membuka non-text file
+    rc = fopen(file, "rb");
+    //Menggunakan fungsi fread untuk membaca isi dari file "Record.dat"
+    fread (&u1, sizeof(u1), 1, rc);
+    //Menggunakan fungsi fclose untuk menutup file "Record.dat" agar tidak diproses lagi
+    fclose (rc);
+
+    //Menampilkan hasil dari Record nama user dan nomor telepon yang diinput oleh user 
+    printf("Nama\t\tNomor Telepon\n\n");
+    printf("%s\t",u1.nama);
+    printf("%s\t\n\n",u1.no_telp);
 }
 
 //=======================================================================//
@@ -583,15 +686,16 @@ akhir :
             daftarwishlist();
             break;
         case 2:
-            printf ("Terima kasih");
+            printf ("Terima kasih\n");
             break;
         default:;
-            printf ("Perhatikan angka yang anda inputkan!");
+            printf ("Perhatikan angka yang anda inputkan!\n");
             goto akhir;
             break;
     }
     system ("clear");
 }
+
 
 //=======================================================================//
 //*         Fungsi Untuk Meminta User Menginputkan Target      **//
@@ -616,3 +720,83 @@ void wish_list(){
         printf ("Kisaran Harga :");
         scanf  ("%d",&hargaBarangDiinginkan);
 }
+
+//=======================================================================//
+//***********   Fungsi Untuk Menampilkan Dana Darurat    ****************//
+//=======================================================================//
+// Nama Fungsi    : DanaDarurat                                          //
+// Passing Argumen: int saldo                                            //
+// Output Argumen : int dana                                             //
+// Deskripsi      : Fungsi ini untuk membantu User dalam membuat Dana    //
+//                  Darurat/Simpanan dalam keadaan genting yang dimana   // 
+//                  aplikasi sarankan 30% dari saldo saat itu            //
+//                  harus disisihkan untk ditabung                       //
+// Versi : 1.0                                      Rev. 1               //
+// Tgl: 27-11-2020                                  Tgl: 1-12-2020       //
+// Revisi 1        : Menambahkan dialog untuk memberikan user penjelasan //
+//                   tentang fungsi ini                                  //
+// Gede Rico Wijaya - 2005551091                                         //
+// Kelas A                                                               //
+//=======================================================================//
+int DanaDarurat (int *saldo){
+    //Deklarasi variabel int dana untuk menyimpan nilai dari Dana yang harus dipersiapkan 
+    //int dana menyimpan nilai dari perhitungan nilai saldo yang diinput oleh user
+    int dana = *saldo * 0.3;
+        printf ("Dalam Manajemen Keungangan Anda harus diperlukan Dana Darurat\n");
+        printf ("Mengapa ?\nKarena agar finansial bisa siap dalam keadaan darurat,\n");
+        printf ("Untuk itu maka diperlukan Dana Darurat yang disarankan yaitu\n30 persen dari saldo yang dimilki\n");
+        printf ("Jadi Dana Darurat yang harus ditabung untuk saat ini adalah: %d\n", dana);
+    //untuk mengubah nilai saldo jika user memilih fungsi DanaDarurat yang akan menjadi saldo = saldo - dana
+    saldo = saldo - dana ;
+    return dana;
+}
+
+//Deklarasi struct account untuk membuat member akunBank, akunCreditCard, cash
+struct account{
+    int akunBank; //Untuk menyimpan nilai saldo pada akun rekening di Bank
+    int akunCreditCard; //Untuk menyimpan nilai saldo pada akun Credit Card
+    int cash; //Untuk meniympan nilai uang cash yang dimiliki
+}a1;
+
+//=======================================================================//
+//***********      Fungsi Untuk Menginput Data Saldo     ****************//
+//=======================================================================//
+// Nama Fungsi    : saldo                                                //
+// Passing Argumen: charx[]                                              //
+// Input Argumen  : a1.akunBank, a1.akunCreditCard, a1.cash              //
+// Output Argumen : int saldoDimiliki                                    //
+// Deskripsi      : untuk menginput dan menyimpan nilai saldo pada masing//
+//                  -masing akun keuangan.                               //
+// Versi : 1.0                                      Rev. 0               //
+// Tgl: 28-11-2020                                  Tgl: 28-1-2020       //
+// Gede Rico Wijaya - 2005551091                                         //
+// Kelas A                                                               //
+//=======================================================================//
+int inputSaldo(char x[]){
+    
+        //Instruksi untuk menginput nilai saldo
+        printf ("NOTE : Jika tidak memiki Saldo pada Akun dibawah ini Ketik 0\n");
+        printf ("Ketik Saldo Pada Akun Bank: ");
+        scanf  ("%d", &a1.akunBank);
+        printf ("Ketik Saldo Pada Akun Credit Card: ");
+        scanf  ("%d", &a1.akunCreditCard);
+        printf ("Ketik Saldo Pada Akun Tabungan Cash: ");
+        scanf  ("%d", &a1.cash);
+    
+    //Deklarasi Variabel untuk menjumlahkan nilai accout
+        saldoDimiliki = a1.akunBank + a1.akunCreditCard + a1.cash;   
+        printf ("Total Saldo yang dimiliki %d\n", saldoDimiliki);
+
+    //Deklarasi Tipe Data File dengan pointer *us
+    FILE *us; //pointerReport pada trackRecord
+    //Membuka file Record.dat untuk dibuka dengan mode ab untuk menambahkan nilai saldo-saldo yang diinput
+    us = fopen (x, "ab");
+    //Menuliskan hasil input data kepada "Record.dat"
+    fwrite (&a1, sizeof(a1), 1, us);
+    //Menggunakan fungsi fclose untuk menutup file "Record.dat" agar tidak diproses lagi
+    fclose (us);
+
+    //untuk menghilangkan perintah-perintah dari layar terminal
+    system ("clear");
+    return saldoDimiliki;
+}   
