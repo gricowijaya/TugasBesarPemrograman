@@ -342,7 +342,7 @@ void input_transaksi(){
 //=======================================================================//
 //**************   Fungsi Untuk Menampilkan Pesan Eror   ****************//
 //=======================================================================//
-// Nama Fungsi    : -                                                    //
+// Nama Fungsi    : error_alert                                          //
 // Input Argumen  : -                                                    //
 // Output Argumen : -                                                    //
 // Deskripsi      : Menampilkan Pemberitahuan Bahwa user memasukan input //
