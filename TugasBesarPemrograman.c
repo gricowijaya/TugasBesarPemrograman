@@ -19,7 +19,8 @@ char password [50];                   //variabel password     => berfungsi untuk
 char nama [50];                       //variabel nama         => berfungsi untuk menyimpan inputan nama yang dimasukkan oleh user
 char passwordcoba [50];               //variabel passwordcoba => berfungsi untuk menyimpan inputan password dari user yang akan di gunakan untuk mengecek apakah yang sedang login adalah pemilik akun dari program yang sedang berjalan
 char Det_Masukan;                     //variabel Det_Masukan  => berfungsi untuk menyimpan inputan Detail Informasi Pemasukan saldo yang di inputkan oleh user.
-
+char nomortlp [50]                    //variabel nomortlp     => berfungsi untuk menyimpan inputan Nomor Telepon user sebagai informasi tambahan dalam membuat email.
+    
 //Deklarasi fungsi fungsi yang digunkan pada program manajemen keuangan
 int pemasukan ();                     // Merupakkan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan pemasukan saldo user.
 int transaksi ();                     // Merupakkan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan transaksi(pengeluaran) user.
@@ -481,11 +482,11 @@ void username(){
 // Nama Fungsi    : email_password                                       //
 // Input Argumen  : int email & char password                            //
 // Output Argumen : -                                                    //
-// Deskripsi      : Memasukkan email dan password yang diminta.          //
-//                  dimana nanti password yang di buat pertama kali      //
-//                  akan di simpan dan di gunakan kembali saat melakukan //
-//                  konfirmasi user .                                    //
-// Versi : 1.0                                      Rev. 0               //
+// Deskripsi      : Memasukkan email, password, dan nomor telepon yang   //
+//                  diminta. dimana nanti password yang di buat pertama  //
+//                  kali akan di simpan dan di gunakan kembali saat      //
+//                  melakukan konfirmasi user .                          //
+// Versi : 1.0                                      Rev. 1               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
@@ -495,4 +496,6 @@ void email_password(){
         scanf  ("%s",&email [50]);
         printf ("Buat Password untuk login :");
         scanf  ("%s",&password [50]);
+        printf ("Masukkan Nomor telepon    :");
+        scanf  ("%s",&nomortlp [50]);
 }
