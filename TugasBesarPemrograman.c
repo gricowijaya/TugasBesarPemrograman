@@ -499,3 +499,61 @@ void email_password(){
         printf ("Masukkan Nomor telepon    :");
         scanf  ("%s",&nomortlp [50]);
 }
+
+//=======================================================================//
+//**       Fungsi Untuk Memilih Menu Kategori Wishlist          ***//
+//=======================================================================//
+// Nama Fungsi    : daftarwishlist                                       //
+// Input Argumen  : int pilihanTarget                                    //
+// Output Argumen : -                                                    //
+// Deskripsi      : User diminta untuk memilih menu kategori target.     //
+//                  Setelah itu, pilihan user akan disimpan dan          //
+//                  akan menampilkan kategori serta akan beralih ke      //
+//                  fungsi wishlist. Dimana user diminta untuk           //
+//                  menginputkan deskripsi dan kisaran harga dari        //
+//                  target tersebut                                      //
+// Versi : 1.0                                      Rev. 0               //
+// Tgl   : 04-12-2020                               Tgl: 04-12-2020      //
+// Luh Putu Monica Arysta Putri Suastawan/2005551090                     //
+// Kelas A                                                               //
+//=======================================================================// 
+void daftarwishlist(){
+    wishlist:
+        printf ("Kategori target\n");
+        printf ("1. Pendidikan \n2. Tempat tinggal \n3. Liburan \n4. Kesehatan \n5. Investasi \n6. Kendaraan \n7. Alat Elektronik");
+        printf ("\nMasukan Pilihan : ");
+        scanf  ("%d",&pilihanTarget);
+
+    switch(pilihanTarget)
+    {
+    case 1 :
+        printf ("Pendidikan \n ");
+        wish_list();
+    break;
+    case 2 :
+        printf ("Rumah \n ");
+        wish_list();
+    break;
+    case 3 :
+        printf ("Liburan  \n");
+        wish_list();
+    break;
+    case 4 :
+        printf ("Kesehatan \n ");
+        wish_list();
+    break;
+    case 5 :
+        printf ("Investasi \n ");
+        wish_list();
+    break;
+    case 6 :
+        printf ("Kendaraan \n ");
+        wish_list();
+    break;
+    case 7 :
+        printf ("Elektronik \n ");
+        wish_list();
+    break;
+    }
+}
+   
