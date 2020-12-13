@@ -594,7 +594,7 @@ akhir :
 }
 
 //=======================================================================//
-//**         Fungsi Untuk Meminta User Menginputkan Target      ***//
+//*         Fungsi Untuk Meminta User Menginputkan Target      **//
 //=======================================================================//
 // Nama Fungsi    : wishlist                                             //
 // Input Argumen  : int hargaBarangDiinginkan dan char namaTarget        //
@@ -605,14 +605,14 @@ akhir :
 //                  akan disimpan dan digunakan kembali saat melakukan   //
 //                  proses pencapaian target terhadap uang yang          //
 //                  dimiliki oleh user .                                 //
-// Versi : 1.0                                      Rev. 0               //
-// Tgl   : 04-12-2020                               Tgl: 04-12-2020      //
+// Versi : 1.0                                      Rev. 1               //
+// Tgl   : 04-12-2020                               Tgl: 11-12-2020      //
 // Luh Putu Monica Arysta Putri Suastawan/2005551090                     //
 // Kelas A                                                               //
 //=======================================================================// 
 void wish_list(){
-        printf ("Deskripsi Barang Yang Dicari:");
-        scanf  ("%s",&namaTarget);
+        printf ("Deskripsi :");
+        scanf("%[^\n]%*c", namaTarget); 
         printf ("Kisaran Harga :");
         scanf  ("%d",&hargaBarangDiinginkan);
 }
