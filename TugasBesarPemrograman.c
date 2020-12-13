@@ -557,3 +557,38 @@ void daftarwishlist(){
     }
 }
    
+//=======================================================================//
+//**              Fungsi Untuk Memilih Menu Wishlist            ***//
+//=======================================================================//
+// Nama Fungsi    : menupil                                              //
+// Input Argumen  : int pilihanMenu                                      //
+// Output Argumen : -                                                    //
+// Deskripsi      : User diminta untuk memilih menu dan memasukkan       //
+//                  pilihannya. Nanti pilihan user akan disimpan         //
+//                  dan digunakan kembali untuk menentukan tampilan      //
+//                  menu selanjutnya yang akan keluar.                   //
+// Versi : 1.0                                      Rev. 0               //
+// Tgl   : 04-12-2020                               Tgl: 04-12-2020      //
+// Luh Putu Monica Arysta Putri Suastawan/2005551090                     //
+// Kelas A                                                               //
+//=======================================================================// 
+void menupil (){
+akhir :
+        printf ("1.Kembali ke menu wishlist\n2.Kembali ke menu utama");
+        printf ("\nApakah anda ingin melanjutkan menu? \n");
+        scanf ("%d",&pilihanMenu);
+
+        switch (pilihanMenu){
+        case 1:
+            daftarwishlist();
+            break;
+        case 2:
+            printf ("Terima kasih");
+            break;
+        default:;
+            printf ("Perhatikan angka yang anda inputkan!");
+            goto akhir;
+            break;
+    }
+    system ("clear");
+}
