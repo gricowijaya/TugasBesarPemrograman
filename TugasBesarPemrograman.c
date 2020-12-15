@@ -29,13 +29,20 @@ char usernameCoba [15];               //variabel usernameCoba  => berfungsi untu
 int pilihanMenu;                      //variable pilihanMenu   => berfungsi untuk menyimpan pilihan untuk user apakah user ingin menambah wishlist atau kembali ke menu utama
 int saldoDimiliki;                    //variabel saldoDimiliki => berfungsi untuk menyimpan saldo yang dituliskan dari pada akunBank, akunCreditCard, cash
 time_t waktuserver;                   //variavel waktuserver   => berfungsi untuk mengambil waktu dari sistem.
-
+int metode;
 //Membuat Struct User dengan member nama dan no_telp
 struct User{
 	char nama[30];
 	char no_telp[12];
     char username[15];
 };
+
+//Membuat struct bayar dengan member bank, creditCard, dan cash
+typedef struct {
+    int bank;
+    int creditCard;
+    int cash;
+}bayar;
 
 //Mendeklarasikan variabel u1 pada struct User
 struct User u1;
@@ -44,7 +51,7 @@ struct User u1;
 int pemasukan ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan pemasukan saldo user.
 int transaksi ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan transaksi(pengeluaran) user.
 void ceksaldo ();                                    // Merupakan fungsi yang digunakan untuk Menampilkan keselurahan saldo terbaru yang di miliki oleh user.
-void konfirmasi (struct User u1,char password1);    // Merupakan fungsi yang di gunakan untuk melakukan pengecekkan apakah yang sedang menjalankan program adalah user yang memiliki akun dari program ini , dengan membbuat parameter char password untuk menyimpan inputan password yang dibuat oleh user pada saat pertama kali memasuki program
+void konfirmasi (struct User u1,int password1);    // Merupakan fungsi yang di gunakan untuk melakukan pengecekkan apakah yang sedang menjalankan program adalah user yang memiliki akun dari program ini , dengan membbuat parameter char password untuk menyimpan inputan password yang dibuat oleh user pada saat pertama kali memasuki program
 void menu ();                                        // Merupakan fungsi yang di gunakan untuk menampilakan berbagai isi dari MENU , yaitu di dalamnya terdapat menu transaksi dan kaetgori transaksi serta menampilkan pilihan utnuk user melakukan pengecekkan sisa saldo yang di miliki oleh user sendiri
 void input_transaksi();                              // Merupakan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah transaksi yang di lakukan oleh user
 void input_masukan();                                // Merupakan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah masukkan yang di lakukan oleh user
@@ -66,6 +73,7 @@ char namaFile[] = "Record.dat";
 int *saldo = &saldoDimiliki;
 // fungsi main () adalah kepala dari program ini, dimana program akan di eksekusi oleh fungsi main ini.
 int main (){
+    bayar md;
     //pemanggilan fungsi untuk pilihan dan pengisisan langkah awal untuk memasuki progrm
     menu_masuk();
     //pemanggilan fungsi untuk membuat dan menampilkan username
@@ -270,91 +278,11 @@ int pemasukan (){
     return total;
 }
 
-//=======================================================================//
-//***********   Fungsi Untuk Menampilkan Pilihan transaksi  *************//
-//=======================================================================//
-// Nama Fungsi    : transaksi                                            //
-// Input Argumen  : int milih                                            //
-// Output Argumen : -                                                    //
-// Deskripsi      : Menampilkan Kategori Transaksi yang ada lalu         //
-//                  memanggil fungsi input_transaksi yang meminta user   //
-//                  untuk melakukan input harga dan di proses untuk      //
-//                  mendapatkan jumlah sisa saldo terbaru.               //
-//                                                                       //
-// Versi : 1.1                                      Rev. 1               //
-// Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
-// Revisi: Menambahkan pemanggilan fungsi waktu untuk menginfokan waktu  //
-//        Saat user mengakses program.                                    //
-// I Gede Himawan - 2005551108                                           //
-// Kelas A                                                               //
-//=======================================================================//
-int transaksi (){
-            printf ("Kategori Pengeluaran\n");
-            printf ("1. Makanan\n2. Transportasi\n3. Fashion\n4. Rumah Tangga\n5. Pendidikan\n6. Lainnya..\nMasukan Pilihan Anda :");
-            scanf  ("%d",&milih);
-            switch (milih){
-
-        //pada case 1 dari menu switch(kategori), memiliki syntax switch case lagi di dalamnya, dimana disini berfungsi untuk meneksekusi inputan dari pilihan yang dimasukkan oleh user pada pilihan kategori transaksi sebelumnya.
-        //dalam case 1 ini mengeksekusi perintah jika user memilih kategori makanan pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
-        case 1:
-            printf ("Makanan....\n");
-            input_transaksi();
-            waktu();
-            break;
-
-        //dalam case 2 ini mengeksekusi perintah jika user memilih kategori Transportasi pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
-        case 2:
-            printf ("Transportasi....\n");
-            input_transaksi();
-            waktu();
-            break;
-
-        //dalam case 3 ini mengeksekusi perintah jika user memilih kategori Fashion pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
-        case 3:
-            printf ("Fashion....\n");
-            input_transaksi();
-            waktu();
-            break;
-
-        //dalam case 4 ini mengeksekusi perintah jika user memilih kategori Rumah Tangga pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
-        case 4:
-            printf ("Rumah Tangga....\n");
-            input_transaksi();
-            waktu();
-            break;
-
-        //dalam case 5 ini mengeksekusi perintah jika user memilih kategori Pendidikan pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
-        case 5:
-            printf ("Pendidikan....\n");
-            input_transaksi();
-            waktu();
-            break;
-
-        //dalam case 6 ini mengeksekusi perintah jika user memilih kategori Lainnya pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
-        case 6:
-            printf ("Lainnya....\n");
-            input_transaksi();
-            waktu();
-            break;
-
-        //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
-        default:
-            printf   ("Pilihan yang Anda masukan Salah!!!\n");
-            printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
-            printf   ("=========================================");
-            break;
-            system ("clear");
-        }
-    total  = *saldo - harga;
-    *saldo = total;
-
-    return total;
-}
 
 //=======================================================================//
 //****************   Fungsi Untuk Menampilkan Saldo   *******************//
 //=======================================================================//
-// Nama Fungsi    : -                                                    //
+// Nama Fungsi    : ceksaldo                                             //
 // Input Argumen  : -                                                    //
 // Output Argumen : int *saldo                                           //
 // Deskripsi      : Menampilkan Sisa atau Banyak saldo yang dimiliki     //
@@ -434,7 +362,6 @@ void error_alert(){
 printf   ("Pilihan yang Anda masukan Salah!!!\n");
 printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
 printf   ("=========================================");
-//goto ktgri; syntax ini akan mengembalikan user ke menu pemilihan kategori untu memilih kembali menu program jika pada bagian ini user sudah melakukan inputan sesuai dengan apa yang di minta oleh program,
 }
 
 //=======================================================================//
@@ -832,4 +759,145 @@ void waktu(){
     time( & waktuserver);
     struct tm * waktu = localtime( & waktuserver);
     printf("Tanggal anda saat ini %i/%i/%i\n\n", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900);
+}
+
+//=======================================================================//
+//***********   Fungsi Untuk Menampilkan Pilihan transaksi  *************//
+//=======================================================================//
+// Nama Fungsi    : metode_pembayaran                                    //
+// Input Argumen  : int metode, md.bank , md.creditCard, dan md.cash     //
+// Output Argumen : -                                                    //
+// Deskripsi      : Program akan menampilkan pilihan metode pembayaran   //
+//                  dan meminta user untuk memilih metode yang digunakan //
+//                  untuk pengeluaran. Setelah itu, user diminta untuk   //
+//                  menginputkan harga barang yang dijadikan sebagai     //
+//                  perhitungan saldo yang dimiliki saat ini. Nantinya   //
+//                  saldo tersebut akan ditampilkan pada fungsi cek saldo//
+//                                                                       //
+// Versi : 1.0                                      Rev. 0               //
+// Tgl   : 03-12-2020                               Tgl: 15-12-2020      //
+// Luh Putu Monica Arysta Putri Suastawan - 2005551090                   //
+// Kelas A                                                               //
+//=======================================================================//
+
+bayar metode_pembayaran (bayar md){
+            printf ("Kategori Pengeluaran\n");
+            printf ("1. Akun bank\n2. Akun credit card\n3. Cash\n");
+            printf ("Masukkan Metode Pembayaran :");
+            scanf  ("%d",&metode);
+            switch (metode){
+        case 1:
+            printf ("Akun Bank\n");
+            printf ("Masukkan harga barang :");
+            scanf  ("%d",&md.bank);
+            total  = *saldo - md.bank;
+            *saldo = total;
+            break;
+        case 2:
+            printf ("Akun credit card\n");
+            printf ("Masukkan harga barang :");
+            scanf  ("%d",&md.creditCard);
+            total  = *saldo - md.creditCard;
+            *saldo = total;
+            break;
+        case 3:
+            printf ("Cash\n");
+            printf ("Masukkan harga barang :");
+            scanf  ("%d",&md.cash);
+            total  = *saldo - md.cash;
+            *saldo = total;
+            break;
+
+        //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
+        default:
+            printf   ("Pilihan yang Anda masukan Salah!!!\n");
+            printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
+            printf   ("=========================================");
+            break;
+            system ("clear");
+        }
+    return md;
+}
+//=======================================================================//
+//***********   Fungsi Untuk Menampilkan Pilihan transaksi  *************//
+//=======================================================================//
+// Nama Fungsi    : transaksi                                            //
+// Input Argumen  : int milih                                            //
+// Output Argumen : -                                                    //
+// Deskripsi      : Menampilkan Kategori Transaksi yang ada lalu         //
+//                  memanggil fungsi input_transaksi yang meminta user   //
+//                  untuk melakukan input harga dan di proses untuk      //
+//                  mendapatkan jumlah sisa saldo terbaru.               //
+//                                                                       //
+// Versi : 1.1                                      Rev. 1               //
+// Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
+// Revisi: Menambahkan pemanggilan fungsi waktu untuk menginfokan waktu  //
+//        Saat user mengakses program.                                    //
+// I Gede Himawan - 2005551108                                           //
+// Kelas A                                                               //
+//=======================================================================//
+
+
+int transaksi (){
+    bayar md;
+            printf ("Kategori Pengeluaran\n");
+            printf ("1. Makanan\n2. Transportasi\n3. Fashion\n4. Rumah Tangga\n5. Pendidikan\n6. Lainnya..\nMasukan Pilihan Anda :");
+            scanf  ("%d",&milih);
+            switch (milih){
+
+        //pada case 1 dari menu switch(kategori), memiliki syntax switch case lagi di dalamnya, dimana disini berfungsi untuk meneksekusi inputan dari pilihan yang dimasukkan oleh user pada pilihan kategori transaksi sebelumnya.
+        //dalam case 1 ini mengeksekusi perintah jika user memilih kategori makanan pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
+        case 1:
+            printf ("Makanan....\n");
+            metode_pembayaran (md);
+            waktu();
+            break;
+
+        //dalam case 2 ini mengeksekusi perintah jika user memilih kategori Transportasi pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
+        case 2:
+            printf ("Transportasi....\n");
+            metode_pembayaran (md);
+            waktu();
+            break;
+
+        //dalam case 3 ini mengeksekusi perintah jika user memilih kategori Fashion pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
+        case 3:
+            printf ("Fashion....\n");
+            metode_pembayaran (md);
+            waktu();
+            break;
+
+        //dalam case 4 ini mengeksekusi perintah jika user memilih kategori Rumah Tangga pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
+        case 4:
+            printf ("Rumah Tangga....\n");
+            metode_pembayaran (md);
+            waktu();
+            break;
+
+        //dalam case 5 ini mengeksekusi perintah jika user memilih kategori Pendidikan pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
+        case 5:
+            printf ("Pendidikan....\n");
+            metode_pembayaran (md);
+            waktu();
+            break;
+
+        //dalam case 6 ini mengeksekusi perintah jika user memilih kategori Lainnya pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
+        case 6:
+            printf ("Lainnya....\n");
+            metode_pembayaran (md);
+            waktu();
+            break;
+
+        //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
+        default:
+            printf   ("Pilihan yang Anda masukan Salah!!!\n");
+            printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
+            printf   ("=========================================");
+            break;
+            system ("clear");
+        }
+    total  = *saldo - harga;
+    *saldo = total;
+
+    return total;
 }
