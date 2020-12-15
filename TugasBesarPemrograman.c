@@ -97,7 +97,7 @@ int main (){
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
 //=======================================================================//
-void konfirmasi (struct User u1,char password1){
+void konfirmasi (struct User u1,int password1){
     pass:
     printf ("\nMasukan Password untuk mengetahui Jumlah SALDO Anda :");
     scanf  ("%d",&passwordcoba);
