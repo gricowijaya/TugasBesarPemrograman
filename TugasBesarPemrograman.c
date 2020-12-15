@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //Dekalarasi variable global yang di gunakan pada program manjemen keuangan ini:
 int masukan [10];                     //variabel masukan      => berfungsi untuk menyimpann masukan saldo yang di inputkan oleh user
@@ -21,24 +22,25 @@ char password [50];                   //variabel password     => berfungsi untuk
 char nama [50];                       //variabel nama         => berfungsi untuk menyimpan inputan nama yang dimasukkan oleh user
 char passwordcoba [50];               //variabel passwordcoba => berfungsi untuk menyimpan inputan password dari user yang akan di gunakan untuk mengecek apakah yang sedang login adalah pemilik akun dari program yang sedang berjalan
 char Det_Masukan;                     //variabel Det_Masukan  => berfungsi untuk menyimpan inputan Detail Informasi Pemasukan saldo yang di inputkan oleh user.
-int hargaBarangDiinginkan;            //variabel hargaBarangDiinginkan => berfungsi untuk menyimpan harga barang 
+int hargaBarangDiinginkan;            //variabel hargaBarangDiinginkan => berfungsi untuk menyimpan harga barang
 int pilihanTarget;                    //variabel pilihanTarget => berfungsi untuk menyimpan pilihan dari kategori target pada bagian Wishlist
-char namaTarget[50];                  //variabel namaTarget    => berfungsi untuk menyimpan deskripsi dari target barang yang diinginkan pada bagian Wishlist 
-char usernameCoba [15];               //variabel usernameCoba  => berfungsi untuk menyimpan username yang dilogin oleh user       
-int pilihanMenu;                      //variable pilihanMenu   => berfungsi untuk menyimpan pilihan untuk user apakah user ingin menambah wishlist atau kembali ke menu utama 
+char namaTarget[50];                  //variabel namaTarget    => berfungsi untuk menyimpan deskripsi dari target barang yang diinginkan pada bagian Wishlist
+char usernameCoba [15];               //variabel usernameCoba  => berfungsi untuk menyimpan username yang dilogin oleh user
+int pilihanMenu;                      //variable pilihanMenu   => berfungsi untuk menyimpan pilihan untuk user apakah user ingin menambah wishlist atau kembali ke menu utama
 int saldoDimiliki;                    //variabel saldoDimiliki => berfungsi untuk menyimpan saldo yang dituliskan dari pada akunBank, akunCreditCard, cash
+time_t waktuserver;                   //variavel waktuserver   => berfungsi untuk mengambil waktu dari sistem.
 
 //Membuat Struct User dengan member nama dan no_telp
 struct User{
 	char nama[30];
 	char no_telp[12];
     char username[15];
-}; 
+};
 
 //Mendeklarasikan variabel u1 pada struct User
 struct User u1;
 
-//Deklarasi fungsi fungsi yang digunkan pada program manajemen keuangan
+//Deklarasi fungsi fungsi yang digunkan pada program manajemen keuangan'
 int pemasukan ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan pemasukan saldo user.
 int transaksi ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan transaksi(pengeluaran) user.
 void ceksaldo ();                                    // Merupakan fungsi yang digunakan untuk Menampilkan keselurahan saldo terbaru yang di miliki oleh user.
@@ -48,16 +50,16 @@ void input_transaksi();                              // Merupakan fungsi yang di
 void input_masukan();                                // Merupakan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah masukkan yang di lakukan oleh user
 void error_alert();                                  // Merupakan fungsi yang digunakan untuk menampilan pemberitahuan ketika user menginputkan pilihan yang salah pada setiap switch case.
 void menu_program();                                 // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu program yang ada
-void menu_masuk();                                   // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu masuk Login atau SignUp     
+void menu_masuk();                                   // Merupakan fungsi yang digunakan untuk menampilkan pilihan menu masuk Login atau SignUp
 void username(struct User u1, char *nm);             // Merupakan fungsi yang digunakan untuk meminta dan menampilkan USERNAME yang digunakan oleh user
 void email_pw();                                     // Merupakan fungsi yang digunakan untuk meminta user untuk menginput Email dan Password yang di gunakan untuk Masuk ke dalam program
 void record(struct User u1, char file[]);            // Merupakan fungsi yang digunakan untuk memperlihatkan track record dari file "Record.dat"
 void wish_list();                                    // Merupakan fungsi yang digunakan untuk menambahkan daftar barang yang diinginkan oleh user
 void menupil ();                                     // Merupakan fungsi yang digunakan untuk pilihan apakah ingin menambah wishlist atau kembali ke menu utama
-void daftarwishlist();                               // Merupakan fungsi yang digunakan untuk memilih kategori dari barang wishlist yang diinginkan 
+void daftarwishlist();                               // Merupakan fungsi yang digunakan untuk memilih kategori dari barang wishlist yang diinginkan
 int DanaDarurat (int *saldo);                        // Merupakan fungsi yang digunakan untuk membantu User dalam mempersiapkan DanaDarurat
 int inputSaldo(char x[]);                            // Merupakan fungsi yang digunakan untuk menginput saldo dengan akun Bank, akun CreditCard, akun Cash
-
+void waktu();                                        // Merupakan fungsi yang digunakan untuk menampilkan waktu pada sistem tempat user mengakses
 //Deklarasi variabel namaFile  "Record.dat" untuk menyimpan data nama dan nomor telepon"
 char namaFile[] = "Record.dat";
 //Deklarasi pointer *pw sebagai pointer kepada alamat agar "Record.dat" bisa dipassing kepada fungsi konfirmasi)
@@ -73,8 +75,8 @@ int main (){
     //pemanggilan fungsi untuk konfrimasi password
     konfirmasi(u1, pw);
     //pemanggilan fungsi untuk menu program
-    menu_program(); 
-    
+    menu_program();
+
 }
 
 //=======================================================================//
@@ -201,11 +203,13 @@ void menu (){
 //                  untuk melakukan input saldo dan di proses untuk      //
 //                  mendapatkan jumlah saldo terbaru.                    //
 //                                                                       //
-// Versi : 1.0                                      Rev. 0               //
+// Versi : 1.1                                      Rev. 1               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
+// Revisi: Menambahkan pemanggilan fungsi waktu untuk menginfokan waktu  //
+//        Saat user mengakses program.                                   //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 int pemasukan (){
 
     ktgrimasuk:
@@ -218,38 +222,47 @@ int pemasukan (){
         case 1:
             printf ("Sewa....\n");
             input_masukan();
+            waktu();
             break;
         case 2:
             printf ("Sumbangan....\n");
             input_masukan();
+            waktu();
             break;
         case 3:
             printf ("Deviden....\n");
             input_masukan();
+            waktu();
             break;
         case 4:
             printf ("Pengembalian Dana...\n");
             input_masukan();
+            waktu();
             break;
         case 5:
             printf ("Upah....\n");
             input_masukan();
+            waktu();
             break;
         case 6:
             printf ("Penjualan....\n");
             input_masukan();
+            waktu();
             break;
         case 7:
             printf ("Bonus....\n");
             input_masukan();
+            waktu();
             break;
         case 8:
             printf ("Voucher....\n");
             input_masukan();
+            waktu();
             break;
         case 9:
             printf ("Lainnya....\n");
             input_masukan();
+            waktu();
             break;
         default:
            error_alert();
@@ -274,11 +287,13 @@ int pemasukan (){
 //                  untuk melakukan input harga dan di proses untuk      //
 //                  mendapatkan jumlah sisa saldo terbaru.               //
 //                                                                       //
-// Versi : 1.0                                      Rev. 0               //
+// Versi : 1.1                                      Rev. 1               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
+// Revisi: Menambahkan pemanggilan fungsi waktu untuk menginfokan waktu  //
+//        Saat user mengakses program.                                    //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 int transaksi (){
             printf ("Kategori Pengeluaran\n");
             printf ("1. Makanan\n2. Transportasi\n3. Fashion\n4. Rumah Tangga\n5. Pendidikan\n6. Lainnya..\nMasukan Pilihan Anda :");
@@ -290,37 +305,42 @@ int transaksi (){
         case 1:
             printf ("Makanan....\n");
             input_transaksi();
+            waktu();
             break;
 
         //dalam case 2 ini mengeksekusi perintah jika user memilih kategori Transportasi pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 2:
             printf ("Transportasi....\n");
             input_transaksi();
+            waktu();
             break;
 
         //dalam case 3 ini mengeksekusi perintah jika user memilih kategori Fashion pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 3:
             printf ("Fashion....\n");
             input_transaksi();
-
+            waktu();
             break;
 
         //dalam case 4 ini mengeksekusi perintah jika user memilih kategori Rumah Tangga pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 4:
             printf ("Rumah Tangga....\n");
             input_transaksi();
+            waktu();
             break;
 
         //dalam case 5 ini mengeksekusi perintah jika user memilih kategori Pendidikan pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 5:
             printf ("Pendidikan....\n");
             input_transaksi();
+            waktu();
             break;
 
         //dalam case 6 ini mengeksekusi perintah jika user memilih kategori Lainnya pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 6:
             printf ("Lainnya....\n");
             input_transaksi();
+            waktu();
             break;
 
         //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
@@ -371,7 +391,7 @@ void ceksaldo (){
 // Versi : 1.0                                      Rev. 0               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // I Gede Himawan - 2005551108                                           //
-// Kelas A                                                               // 
+// Kelas A                                                               //
 //=======================================================================//
 void input_masukan(){
         printf ("Masukkan Banyak Pemasukan Anda :");
@@ -393,8 +413,8 @@ void input_masukan(){
 // Versi : 1.0                                      Rev. 0               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // I Gede Himawan - 2005551108                                           //
-// Kelas A                                                               // 
-//=======================================================================// 
+// Kelas A                                                               //
+//=======================================================================//
 void input_transaksi(){
         printf ("Masukkan Total Transaksi anda: ");
         scanf  ("%d",&harga );
@@ -415,7 +435,7 @@ void input_transaksi(){
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 void error_alert(){
 printf   ("Pilihan yang Anda masukan Salah!!!\n");
 printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
@@ -437,7 +457,7 @@ printf   ("=========================================");
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 void menu_program(){
     pilih:
         puts   ("\nMenu Program");
@@ -480,7 +500,7 @@ void menu_program(){
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 void menu_masuk(){
         // Pada menu awal user akan dimnta untuk memasukkan pilihan untuk masuk ke dalam program, dimana disini terdapat dua pilihan yaitu Login dan SignUp, dimana disetiap pilihan akan mengantarkan user ke masing masing menu dari setiap pilihan tersebut
         masuk:
@@ -529,7 +549,7 @@ void menu_masuk(){
 // Kelas A                                                               //
 //=======================================================================//
 void username(struct User u1, char file[]){
-	//Instruksi dari input nama 
+	//Instruksi dari input nama
 	printf ("Ketik nama anda :\n");
     scanf  ("%s", u1.nama);//menyimpan nilai input dengan akses member nama dengan variabel u1
 	//Instruksi dari input nomor telepon
@@ -564,7 +584,7 @@ void username(struct User u1, char file[]){
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 void email_pw(){
         printf ("Buat Email Anda           :");
         scanf  ("%s",&email [50]);
@@ -597,8 +617,8 @@ void record(struct User u1, char file[] ){
     //Menggunakan fungsi fclose untuk menutup file "Record.dat" agar tidak diproses lagi
     fclose (rc);
 
-    //Menampilkan hasil dari Record nama user dan nomor telepon yang diinput oleh user 
-    printf("Nama\t\tNomor Telepon\n\n");
+    //Menampilkan hasil dari Record nama user dan nomor telepon yang diinput oleh user
+    printf("Nama\tNomor Telepon\n\n");
     printf("%s\t",u1.nama);
     printf("%s\t\n\n",u1.no_telp);
 }
@@ -619,7 +639,7 @@ void record(struct User u1, char file[] ){
 // Tgl   : 04-12-2020                               Tgl: 04-12-2020      //
 // Luh Putu Monica Arysta Putri Suastawan/2005551090                     //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 void daftarwishlist(){
     wishlist:
         printf ("Kategori target\n");
@@ -659,9 +679,9 @@ void daftarwishlist(){
     break;
     }
 }
-   
+
 //=======================================================================//
-//**              Fungsi Untuk Memilih Menu Wishlist            ***//
+//**              Fungsi Untuk Memilih Menu Wishlist                  ***//
 //=======================================================================//
 // Nama Fungsi    : menupil                                              //
 // Input Argumen  : int pilihanMenu                                      //
@@ -674,12 +694,12 @@ void daftarwishlist(){
 // Tgl   : 04-12-2020                               Tgl: 04-12-2020      //
 // Luh Putu Monica Arysta Putri Suastawan/2005551090                     //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 void menupil (){
 akhir :
         printf ("1.Kembali ke menu wishlist\n2.Kembali ke menu utama");
         printf ("\nApakah anda ingin melanjutkan menu? \n");
-        scanf ("%d",&pilihanMenu);
+        scanf  ("%d",&pilihanMenu);
 
         switch (pilihanMenu){
         case 1:
@@ -713,10 +733,10 @@ akhir :
 // Tgl   : 04-12-2020                               Tgl: 11-12-2020      //
 // Luh Putu Monica Arysta Putri Suastawan/2005551090                     //
 // Kelas A                                                               //
-//=======================================================================// 
+//=======================================================================//
 void wish_list(){
         printf ("Deskripsi :");
-        scanf("%[^\n]%*c", namaTarget); 
+        scanf("%[^\n]%*c", namaTarget);
         printf ("Kisaran Harga :");
         scanf  ("%d",&hargaBarangDiinginkan);
 }
@@ -728,7 +748,7 @@ void wish_list(){
 // Passing Argumen: int saldo                                            //
 // Output Argumen : int dana                                             //
 // Deskripsi      : Fungsi ini untuk membantu User dalam membuat Dana    //
-//                  Darurat/Simpanan dalam keadaan genting yang dimana   // 
+//                  Darurat/Simpanan dalam keadaan genting yang dimana   //
 //                  aplikasi sarankan 30% dari saldo saat itu            //
 //                  harus disisihkan untk ditabung                       //
 // Versi : 1.0                                      Rev. 1               //
@@ -739,7 +759,7 @@ void wish_list(){
 // Kelas A                                                               //
 //=======================================================================//
 int DanaDarurat (int *saldo){
-    //Deklarasi variabel int dana untuk menyimpan nilai dari Dana yang harus dipersiapkan 
+    //Deklarasi variabel int dana untuk menyimpan nilai dari Dana yang harus dipersiapkan
     //int dana menyimpan nilai dari perhitungan nilai saldo yang diinput oleh user
     int dana = *saldo * 0.3;
         printf ("Dalam Manajemen Keungangan Anda harus diperlukan Dana Darurat\n");
@@ -773,7 +793,7 @@ struct account{
 // Kelas A                                                               //
 //=======================================================================//
 int inputSaldo(char x[]){
-    
+
         //Instruksi untuk menginput nilai saldo
         printf ("NOTE : Jika tidak memiki Saldo pada Akun dibawah ini Ketik 0\n");
         printf ("Ketik Saldo Pada Akun Bank: ");
@@ -782,9 +802,9 @@ int inputSaldo(char x[]){
         scanf  ("%d", &a1.akunCreditCard);
         printf ("Ketik Saldo Pada Akun Tabungan Cash: ");
         scanf  ("%d", &a1.cash);
-    
+
     //Deklarasi Variabel untuk menjumlahkan nilai accout
-        saldoDimiliki = a1.akunBank + a1.akunCreditCard + a1.cash;   
+        saldoDimiliki = a1.akunBank + a1.akunCreditCard + a1.cash;
         printf ("Total Saldo yang dimiliki %d\n", saldoDimiliki);
 
     //Deklarasi Tipe Data File dengan pointer *us
@@ -799,4 +819,23 @@ int inputSaldo(char x[]){
     //untuk menghilangkan perintah-perintah dari layar terminal
     system ("clear");
     return saldoDimiliki;
-}   
+}
+//=======================================================================//
+//***********     Fungsi Untuk Menampilkan Waktu Sistem     *************//
+//=======================================================================//
+// Nama Fungsi    : waktu                                                //
+// Input Argumen  : -                                                    //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini digunakan untuk mengambil dan menampilkan //
+//                 Waktu sistem pada saat user mengakses program.        //
+//                                                                       //
+// Versi : 1.0                                      Rev. 0               //
+// Tgl   : 15-12-2020                               Tgl: 03-12-2020      //
+// I Gede Himawan - 2005551108                                           //
+// Kelas A                                                               //
+//=======================================================================//
+void waktu(){
+    time( & waktuserver);
+    struct tm * waktu = localtime( & waktuserver);
+    printf("Tanggal anda saat ini %i/%i/%i\n\n", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900);
+}
