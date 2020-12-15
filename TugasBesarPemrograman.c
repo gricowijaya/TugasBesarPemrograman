@@ -29,12 +29,22 @@ char usernameCoba [15];               //variabel usernameCoba  => berfungsi untu
 int pilihanMenu;                      //variable pilihanMenu   => berfungsi untuk menyimpan pilihan untuk user apakah user ingin menambah wishlist atau kembali ke menu utama
 int saldoDimiliki;                    //variabel saldoDimiliki => berfungsi untuk menyimpan saldo yang dituliskan dari pada akunBank, akunCreditCard, cash
 time_t waktuserver;                   //variavel waktuserver   => berfungsi untuk mengambil waktu dari sistem.
-int metode;
+int metode;                           //variable pilihanMenu   => berfungsi untuk menyimpan pilihan metode pembayaran pada fungsi transaksi.
+int *bank;                            //pointer bank           => berfungsi untuk menyimpan nilai sisa dari hasil setelah saldo bank di kurang atau dengan adanya proses transaksi secara berulang kali 
+int *kredit;                          //pointer bank           => berfungsi untuk menyimpan nilai sisa dari hasil setelah saldo kredit di kurang atau dengan adanya proses transaksi secara berulang kali 
+int *cash;                            //pointer bank           => berfungsi untuk menyimpan nilai sisa dari hasil setelah saldo cash di kurang atau dengan adanya proses transaksi secara berulang kali                         
 //Membuat Struct User dengan member nama dan no_telp
 struct User{
 	char nama[30];
 	char no_telp[12];
     char username[15];
+};
+
+//Membuat struct account dengan member akunBank, akunCreditCard, cash.
+struct account{
+    int akunBank; //Untuk menyimpan nilai saldo pada akun rekening di Bank
+    int akunCreditCard; //Untuk menyimpan nilai saldo pada akun Credit Card
+    int cash; //Untuk meniympan nilai uang cash yang dimiliki
 };
 
 //Membuat struct bayar dengan member bank, creditCard, dan cash
@@ -46,7 +56,7 @@ typedef struct {
 
 //Mendeklarasikan variabel u1 pada struct User
 struct User u1;
-
+struct account a1;
 //Deklarasi fungsi fungsi yang digunkan pada program manajemen keuangan'
 int pemasukan ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan pemasukan saldo user.
 int transaksi ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan transaksi(pengeluaran) user.
@@ -71,6 +81,9 @@ void waktu();                                        // Merupakan fungsi yang di
 char namaFile[] = "Record.dat";
 //Assign pointer *saldo kepada alamat variabel dari saldoDimiliki
 int *saldo = &saldoDimiliki;
+int *bank   = & a1.akunBank;
+int *kredit = & a1.akunCreditCard;
+int *cash   = & a1.cash;
 // fungsi main () adalah kepala dari program ini, dimana program akan di eksekusi oleh fungsi main ini.
 int main (){
     bayar md;
@@ -82,7 +95,6 @@ int main (){
     konfirmasi(u1, password);
     //pemanggilan fungsi untuk menu program
     menu_program();
-
 }
 
 //=======================================================================//
@@ -96,7 +108,7 @@ int main (){
 //                  akan di simpan dan di gunakan kembali saat melakukan //
 //                  konfirmasi user .                                    //
 //                                                                       //
-// Versi : 1.0                                      Rev. 1               //
+// Versi : 1.1                                      Rev. 1               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
 // Revisi: Memperbaiki Logical Error yang sebelumnya terjadi. Dimana     //
 //        saat user melakukan konfirmasi password dengan password yang   //
@@ -284,19 +296,24 @@ int pemasukan (){
 //=======================================================================//
 // Nama Fungsi    : ceksaldo                                             //
 // Input Argumen  : -                                                    //
-// Output Argumen : int *saldo                                           //
+// Output Argumen : int *bank,int *kredit,int *cash,int *saldo.          //
 // Deskripsi      : Menampilkan Sisa atau Banyak saldo yang dimiliki     //
 //                  Oleh user.                                           //
 //                                                                       //
-// Versi : 1.0                                      Rev. 0               //
+// Versi : 1.1                                      Rev. 1               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
+// Revisi: Menambahkan syntax untuk penampilan sisa saldo terbaru pada   //  
+//        setiap jenis saldo yang dimiliki.                              //            
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
 //=======================================================================//
 void ceksaldo (){
 
             // Menampilkan pemberitahuan sisa saldo yang di* miliki user pada saat mengakses program
-            printf ("Sisa Saldo Anda Adalah  :Rp. %d \n" , *saldo);
+            printf ("Saldo pada Bank   : %d\n",*bank);
+            printf ("Saldo pada kredit : %d\n",*kredit);
+            printf ("Saldo pada cash   : %d\n",*cash);
+            printf ("Sisa Total Saldo Anda Adalah  :Rp. %d \n" , *saldo);
             //Pointer saldo akan menyimpan sisa saldo terbaru yang akan di proses kembali apabila ada proses transaksi lagi .
 }
 
@@ -693,11 +710,6 @@ int DanaDarurat (int *saldo){
 }
 
 //Deklarasi struct account untuk membuat member akunBank, akunCreditCard, cash
-struct account{
-    int akunBank; //Untuk menyimpan nilai saldo pada akun rekening di Bank
-    int akunCreditCard; //Untuk menyimpan nilai saldo pada akun Credit Card
-    int cash; //Untuk meniympan nilai uang cash yang dimiliki
-}a1;
 
 //=======================================================================//
 //***********      Fungsi Untuk Menginput Data Saldo     ****************//
@@ -723,7 +735,7 @@ int inputSaldo(char x[]){
         scanf  ("%d", &a1.akunCreditCard);
         printf ("Ketik Saldo Pada Akun Tabungan Cash: ");
         scanf  ("%d", &a1.cash);
-
+        
     //Deklarasi Variabel untuk menjumlahkan nilai accout
         saldoDimiliki = a1.akunBank + a1.akunCreditCard + a1.cash;
         printf ("Total Saldo yang dimiliki %d\n", saldoDimiliki);
@@ -774,8 +786,11 @@ void waktu(){
 //                  perhitungan saldo yang dimiliki saat ini. Nantinya   //
 //                  saldo tersebut akan ditampilkan pada fungsi cek saldo//
 //                                                                       //
-// Versi : 1.0                                      Rev. 0               //
+// Versi : 1.1                                      Rev. 1               //
 // Tgl   : 03-12-2020                               Tgl: 15-12-2020      //
+// Revisi: Menambahkan syntax untuk menghitung jumlah saldo terbaru pada //
+//        setiap metode yang di gunakan seperti bank, credit card & cash.//
+// I GEDE HIMAWAN - 2005551108                                           //
 // Luh Putu Monica Arysta Putri Suastawan - 2005551090                   //
 // Kelas A                                                               //
 //=======================================================================//
@@ -790,6 +805,8 @@ bayar metode_pembayaran (bayar md){
             printf ("Akun Bank\n");
             printf ("Masukkan harga barang :");
             scanf  ("%d",&md.bank);
+            int tb = *bank - md.bank;
+            *bank  = tb;
             total  = *saldo - md.bank;
             *saldo = total;
             break;
@@ -797,6 +814,8 @@ bayar metode_pembayaran (bayar md){
             printf ("Akun credit card\n");
             printf ("Masukkan harga barang :");
             scanf  ("%d",&md.creditCard);
+            int tk = *bank - md.creditCard;
+            *kredit  = tk;
             total  = *saldo - md.creditCard;
             *saldo = total;
             break;
@@ -804,6 +823,8 @@ bayar metode_pembayaran (bayar md){
             printf ("Cash\n");
             printf ("Masukkan harga barang :");
             scanf  ("%d",&md.cash);
+            int tc = *cash - md.cash;
+            *cash  = tc;
             total  = *saldo - md.cash;
             *saldo = total;
             break;
