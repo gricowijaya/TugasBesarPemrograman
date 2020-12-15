@@ -18,9 +18,9 @@ int milih;                            //variabel milih        => berfungsi untuk
 char Det_Transaksi [50];              //Variabel Det_Transaksi=> berfunsgi untuk menyimpan masukan dari info transaksi yang di masukkan user jika pada melihilan jenis transaksi user memilih kategori lainnya sehingga user di minta untuk memasukkan manual informasi dari transaksi yang di lakukan.
 int i;                                //variabel i            => berfungsi untuk menyimpan nilai increment pada proses looping yang terdapat pada fungsi menu,dimana variabel ini akan melakukan pengulangan proses transaksi dengan nilai saldo yang di proses merupakan sisa dari saldo transaksi yang dilakukan oleh user sebelumnya.
 char email [50];                      //variabel email        => berfungsi untuk menyimpan inputan email yang dimasukkan oleh user
-char password [50];                   //variabel password     => berfungsi untuk menyimpan inputan password yang dimasukkan oleh user
+int password;                         //variabel password     => berfungsi untuk menyimpan inputan password yang dimasukkan oleh user
 char nama [50];                       //variabel nama         => berfungsi untuk menyimpan inputan nama yang dimasukkan oleh user
-char passwordcoba [50];               //variabel passwordcoba => berfungsi untuk menyimpan inputan password dari user yang akan di gunakan untuk mengecek apakah yang sedang login adalah pemilik akun dari program yang sedang berjalan
+int passwordcoba;                     //variabel passwordcoba => berfungsi untuk menyimpan inputan password dari user yang akan di gunakan untuk mengecek apakah yang sedang login adalah pemilik akun dari program yang sedang berjalan
 char Det_Masukan;                     //variabel Det_Masukan  => berfungsi untuk menyimpan inputan Detail Informasi Pemasukan saldo yang di inputkan oleh user.
 int hargaBarangDiinginkan;            //variabel hargaBarangDiinginkan => berfungsi untuk menyimpan harga barang
 int pilihanTarget;                    //variabel pilihanTarget => berfungsi untuk menyimpan pilihan dari kategori target pada bagian Wishlist
@@ -44,7 +44,7 @@ struct User u1;
 int pemasukan ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan pemasukan saldo user.
 int transaksi ();                                    // Merupakan fungsi yang digunakan untuk menampilkan dan menyimpan semua kategori, dan inputan transaksi(pengeluaran) user.
 void ceksaldo ();                                    // Merupakan fungsi yang digunakan untuk Menampilkan keselurahan saldo terbaru yang di miliki oleh user.
-void konfirmasi (struct User u1,char *password1);    // Merupakan fungsi yang di gunakan untuk melakukan pengecekkan apakah yang sedang menjalankan program adalah user yang memiliki akun dari program ini , dengan membbuat parameter char password untuk menyimpan inputan password yang dibuat oleh user pada saat pertama kali memasuki program
+void konfirmasi (struct User u1,char password1);    // Merupakan fungsi yang di gunakan untuk melakukan pengecekkan apakah yang sedang menjalankan program adalah user yang memiliki akun dari program ini , dengan membbuat parameter char password untuk menyimpan inputan password yang dibuat oleh user pada saat pertama kali memasuki program
 void menu ();                                        // Merupakan fungsi yang di gunakan untuk menampilakan berbagai isi dari MENU , yaitu di dalamnya terdapat menu transaksi dan kaetgori transaksi serta menampilkan pilihan utnuk user melakukan pengecekkan sisa saldo yang di miliki oleh user sendiri
 void input_transaksi();                              // Merupakan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah transaksi yang di lakukan oleh user
 void input_masukan();                                // Merupakan fungsi yang digunakan untuk meminta dan menyimpan inputan dari jumlah masukkan yang di lakukan oleh user
@@ -62,8 +62,6 @@ int inputSaldo(char x[]);                            // Merupakan fungsi yang di
 void waktu();                                        // Merupakan fungsi yang digunakan untuk menampilkan waktu pada sistem tempat user mengakses
 //Deklarasi variabel namaFile  "Record.dat" untuk menyimpan data nama dan nomor telepon"
 char namaFile[] = "Record.dat";
-//Deklarasi pointer *pw sebagai pointer kepada alamat agar "Record.dat" bisa dipassing kepada fungsi konfirmasi)
-char *pw = password;
 //Assign pointer *saldo kepada alamat variabel dari saldoDimiliki
 int *saldo = &saldoDimiliki;
 // fungsi main () adalah kepala dari program ini, dimana program akan di eksekusi oleh fungsi main ini.
@@ -73,7 +71,7 @@ int main (){
     //pemanggilan fungsi untuk membuat dan menampilkan username
     username(u1, namaFile);
     //pemanggilan fungsi untuk konfrimasi password
-    konfirmasi(u1, pw);
+    konfirmasi(u1, password);
     //pemanggilan fungsi untuk menu program
     menu_program();
 
@@ -90,24 +88,21 @@ int main (){
 //                  akan di simpan dan di gunakan kembali saat melakukan //
 //                  konfirmasi user .                                    //
 //                                                                       //
-// Versi : 1.0                                      Rev. 0               //
+// Versi : 1.0                                      Rev. 1               //
 // Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
+// Revisi: Memperbaiki Logical Error yang sebelumnya terjadi. Dimana     //
+//        saat user melakukan konfirmasi password dengan password yang   //
+//        salah , pogram tetap membenarkan, namun setelah di perbaiki    //
+//        kini user harus memasukkan password dengan benar untuk lanjut. //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
 //=======================================================================//
-void konfirmasi (struct User u1,char *password1){
+void konfirmasi (struct User u1,char password1){
     pass:
-    // bagian ini akan menampilkan perintah dan meminta user untuk memasukkan ulang password yang sudah di buatnya pada pertama kali login untuk mengkonvirmasi bahwa yang sedang mengakses program ini adalah pemilik akun dari program yang sedang dijalankan,
-    if (strcmp(usernameCoba, u1.username)==0){
-        printf (" ");
-    } else {
-        printf ("Username salah");
-        goto pass;
-    }
     printf ("\nMasukan Password untuk mengetahui Jumlah SALDO Anda :");
-    scanf  ("%s",&passwordcoba[50]);
+    scanf  ("%d",&passwordcoba);
     // melakukan pengecekkan apabila password yang baru saja di masukkan untuk mengkonvirmasi sama dengan password yang di buat pertama kali yang dibuat oleh user, maka proses akan di lanjutkan pada program selanjutnya.
-    if ( strcmp(passwordcoba, password) == 0){
+    if ( passwordcoba == password1){
         printf ("Password Benar!!\n");
     }
     // jika password yang di masukan salah , maka program akan menampilakn pemberitahuan pasword salah
@@ -118,7 +113,6 @@ void konfirmasi (struct User u1,char *password1){
         goto pass;
     }
 }
-
 //=======================================================================//
 //************   Fungsi Untuk Menampilkan Menu Pilihan   ****************//
 //=======================================================================//
@@ -589,7 +583,7 @@ void email_pw(){
         printf ("Buat Email Anda           :");
         scanf  ("%s",&email [50]);
         printf ("Buat Password untuk login :");
-        scanf  ("%s",&password [50]);
+        scanf  ("%d",&password);
         system ("clear");
 }
 
