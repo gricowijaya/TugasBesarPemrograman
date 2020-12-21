@@ -529,7 +529,7 @@ void masuk(){
             printf("Ketik 1 untuk daftar\nKetik 2 untuk masuk ulang\nKetik 3 untuk EXIT\n");
             printf("Pilihan: ");
             scanf ("%d", &pilihan);
-            system("clear");
+            system ("cls");
             // Jika pengguna mengetik nomor 1 maka akan dialihkan kepada fungsi daftar
             if (pilihan == 1){
                 daftar();
@@ -602,7 +602,7 @@ void daftar(){
     getchar();
     
     // Membersikan layar terminal
-    system("clear");
+    system ("cls");
     // Memanggil fungsi masuk()
     masuk();
 }
@@ -805,9 +805,9 @@ int inputSaldo(char x[]){
         printf   ("Masukan Saldo\n");
         //Instruksi untuk menginput nilai saldo
         printf ("#NOTE : Jika tidak memiki Saldo pada Akun dibawah ini Ketik 0\n\n\n");
-        printf ("Ketik Saldo Pada Akun Bank: ");
+        printf ("Ketik Saldo Pada Akun Bank         : ");
         scanf  ("%d", &a1.akunBank);
-        printf ("Ketik Saldo Pada Akun Credit Card: ");
+        printf ("Ketik Saldo Pada Akun Credit Card  : ");
         scanf  ("%d", &a1.akunCreditCard);
         printf ("Ketik Saldo Pada Akun Tabungan Cash: ");
         scanf  ("%d", &a1.cash);
@@ -863,16 +863,24 @@ void waktu(){
 //                  perhitungan saldo yang dimiliki saat ini. Nantinya   //
 //                  saldo tersebut akan ditampilkan pada fungsi cek saldo//
 //                                                                       //
-// Versi : 1.1                                      Rev. 1               //
-// Tgl   : 03-12-2020                               Tgl: 15-12-2020      //
-// Revisi: Menambahkan syntax untuk menghitung jumlah saldo terbaru pada //
-//        setiap metode yang di gunakan seperti bank, credit card & cash.//
+// Versi : 1.2                                      Rev. 2               //
+// Tgl   : 03-12-2020                               Tgl: 21-12-2020      //
+// Revisi: 1. Menambahkan syntax untuk menghitung jumlah saldo terbaru   //
+//        pada setiap metode yang di gunakan seperti bank, credit card & //
+//        cash.                                                          //
+//         2. Melakukan perubahan dan penambahan syntax pada fungsi      //
+//        metode_pembayaran dimana user tidak bisa melakukan transaksi   //
+//        pada akun tertentu jika saldo yang dimiliki lebih kecil dari   //
+//        jumlah harga transaksi yang dilakukan. oleh karena tujuan dari //
+//        syntax untuk mejaga saldo pada setiap akun tidak dapat kurang  //
+//        dari 0 atau minus.                                             //
 // I GEDE HIMAWAN - 2005551108                                           //
 // Luh Putu Monica Arysta Putri Suastawan - 2005551090                   //
 // Kelas A                                                               //
 //=======================================================================//
 bayar metode_pembayaran (bayar md){
-            printf ("Metode Pembayaran yang Anda gunakan:\n");
+    metode:
+            printf ("Kategori Pengeluaran\n");
             printf ("1. Akun bank\n2. Akun credit card\n3. Cash\n");
             printf ("Masukkan Metode Pembayaran :");
             scanf  ("%d",&metode);
@@ -881,30 +889,51 @@ bayar metode_pembayaran (bayar md){
             printf ("Akun Bank\n");
             printf ("Masukkan harga barang :");
             scanf  ("%d",&md.bank);
+            if (*bank < md.bank){
+                printf ("Saldo yang anda miliki pada akun Bank kurang dari jumlah transaksi\n");
+                printf ("Silahkan coba dengan metode pembayaran lain\n");
+                goto metode;
+            }
+            else{
             int tb = *bank - md.bank;
-            *bank  = tb;
+            *bank  = tb;    
             total  = *saldo - md.bank;
             *saldo = total;
+            }
+            
             break;
         case 2:
             printf ("Akun credit card\n");
             printf ("Masukkan harga barang :");
             scanf  ("%d",&md.creditCard);
-            int tk = *bank - md.creditCard;
-            *kredit  = tk;
-            total  = *saldo - md.creditCard;
+            if (*kredit < md.creditCard){
+                printf ("Saldo yang anda miliki pada akun kredit kurang dari jumlah transaksi\n");
+                printf ("Silahkan coba dengan metode pembayaran lain\n");
+                goto metode;
+            }
+            else{
+            int tc   = *kredit - md.creditCard;
+            *kredit  = tc;    
+            total  = *saldo - md.bank;
             *saldo = total;
+            }
             break;
         case 3:
             printf ("Cash\n");
             printf ("Masukkan harga barang :");
             scanf  ("%d",&md.cash);
+            if (*kredit < md.creditCard){
+                printf ("Saldo cash yang anda miliki kurang dari jumlah transaksi\n");
+                printf ("Silahkan coba dengan metode pembayaran lain\n");
+                goto metode;
+            }
+            else{
             int tc = *cash - md.cash;
             *cash  = tc;
-            total  = *saldo - md.cash;
+            total  = *saldo - md.bank;
             *saldo = total;
+            }
             break;
-
         //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
         default:
             printf   ("Pilihan yang Anda masukan Salah!!!\n");
