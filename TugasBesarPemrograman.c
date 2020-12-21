@@ -31,7 +31,7 @@ int metode;                           //variable pilihanMenu   => berfungsi untu
 int *bank;                            //pointer bank           => berfungsi untuk menyimpan nilai sisa dari hasil setelah saldo bank di kurang atau dengan adanya proses transaksi secara berulang kali 
 int *kredit;                          //pointer bank           => berfungsi untuk menyimpan nilai sisa dari hasil setelah saldo kredit di kurang atau dengan adanya proses transaksi secara berulang kali 
 int *cash;                            //pointer bank           => berfungsi untuk menyimpan nilai sisa dari hasil setelah saldo cash di kurang atau dengan adanya proses transaksi secara berulang kali                         
-
+int mtdmsk;                           //vairbel mtdmsk         => berfungsi untuk menyimpan pilihan metode pemasukan pada fungsi pemasukan.
 // Struct User untuk menyimpan member nama, username, password 
 typedef struct {
     char nama[50];
@@ -195,21 +195,29 @@ void menu (){
 //**************   Fungsi Untuk Menginputkan Pemasukan   ****************//
 //=======================================================================//
 // Nama Fungsi    : pemasukan                                            //
-// Input Argumen  : int ktgrimasukan                                     //
+// Input Argumen  : int ktgrimasukan , int mtdmsk                        //
 // Output Argumen : -                                                    //
 // Deskripsi      : Menampilkan Kategori Pemasukan yang ada lalu         //
 //                  memanggil fungsi input_masukan yang meminta user     //
 //                  untuk melakukan input saldo dan di proses untuk      //
 //                  mendapatkan jumlah saldo terbaru.                    //
 //                                                                       //
-// Versi : 1.1                                      Rev. 1               //
-// Tgl   : 03-12-2020                               Tgl: 03-12-2020      //
-// Revisi: Menambahkan pemanggilan fungsi waktu untuk menginfokan waktu  //
+// Versi : 1.2                                      Rev. 2               //
+// Tgl   : 03-12-2020                               Tgl: 21-12-2020      //
+// Revisi:1. Menambahkan pemanggilan fungsi waktu untuk menginfokan waktu//
 //        Saat user mengakses program.                                   //
+//        2. Menambahkan option untuk pemilihan metode masukkan dari user//
+//        lalu menyimpannya pada pointer dari pilihan yang di masukkan   //
+//        yaitu ada bank, kredit atau, cash.                             //
 // I Gede Himawan - 2005551108                                           //
 // Kelas A                                                               //
 //=======================================================================//
 int pemasukan (){
+    mtd:
+    printf ("Kategori Pengeluaran\n");
+    printf ("1. Akun bank\n2. Akun credit card\n3. Cash\n");
+    printf ("Masukkan Metode Pembayaran :");
+    scanf  ("%d",& mtdmsk);
 
     ktgrimasuk:
     printf ("Kategori Pemasukan \n");
@@ -269,9 +277,26 @@ int pemasukan (){
         break;
         system ("clear");
     }
-    total  = *saldo + masukan[i];
+    if (mtdmsk == 1){
+        int pb  = *bank + masukan;
+        *bank   = pb;
+    }
+    else if (mtdmsk == 2){
+        int pk   = *kredit + masukan;
+        *kredit = pk;
+        
+    }
+    else if (mtdmsk == 3){
+        int pc  = *cash + masukan;
+        *cash  = pc;
+        *saldo = total + *saldo;
+    }
+    else{
+        error_alert();
+        goto mtd;
+    }
+    total  = *saldo + masukan;
     *saldo = total;
-
     return total;
 }
 
