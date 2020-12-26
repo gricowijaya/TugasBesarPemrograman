@@ -165,7 +165,7 @@ void menu (){
     printf ("\t\t\t\t\t|   7   |    EXIT                                |\n");
     printf ("\t\t\t\t\t|================================================|\n");
 
-        printf ("\n\t\t\t\t\t Masukkan Pilihan Anda : ");
+    printf ("\n\t\t\t\t\t||Masukkan Pilihan Anda :");
         scanf  ("%d",&kategori);
         system ("clear");
         //pada menu switch case bagian ini , merupakan lanjutan proses dari pilihan user yang di inputkan sebelumnya pada pilihan pada MENU program.
@@ -240,9 +240,10 @@ int pemasukan (){
     printf ("\t\t\t\t\t|   2   |    Akun Credit Card                    |\n");
     printf ("\t\t\t\t\t|   3   |    Cash                                |\n");
     printf ("\t\t\t\t\t|================================================|\n");
-    
-    printf ("\n\t\t\t\t\t Masukkan Akun Pemasukan : ");
+    printf ("\t\t\t\t\t|================================================|\n");
+    printf ("\n\t\t\t\t\t Masukkan Akun Pemasukan :");
     scanf  ("%d",& mtdmsk);
+    printf ("\t\t\t\t\t|================================================|\n");
 
     ktgrimasuk:
     printf ("\t\t\t\t\t|================================================|\n");
@@ -261,51 +262,71 @@ int pemasukan (){
     printf ("\t\t\t\t\t|   9   |        Lainnya                         |\n");
     printf ("\t\t\t\t\t|================================================|\n");
 
-    printf ("\n\t\t\t\t\t Masukan Kategori Pemasukan yang anda miliki => ");
+    printf ("\t\t\t\t\t|=======================================================|\n");
+    printf ("\n\t\t\t\t|      Masukan Kategori Pemasukan yang anda miliki => ");
+    printf ("\t\t\t\t\t|=======================================================|\n");
     scanf  ("%d",&ktgrimasukan);
     switch (ktgrimasukan){
         case 1:
-            printf ("Sewa....\n");
+            printf ("\t\t\t\t\t|=================|");
+            printf ("\t\t\t\t\t|      Sewa       |\n");
+            printf ("\t\t\t\t\t|=================|");
             input_masukan();
             waktu();
             break;
         case 2:
-            printf ("Sumbangan....\n");
+            printf ("\t\t\t\t\t|=================|");
+            printf ("\t\t\t\t\t|    Sumbangan    |\n");
+            printf ("\t\t\t\t\t|=================|");
             input_masukan();
             waktu();
             break;
         case 3:
-            printf ("Deviden....\n");
+            printf ("\t\t\t\t\t|=================|\n");
+            printf ("\t\t\t\t\t|      Deviden    |\n");
+            printf ("\t\t\t\t\t|=================|\n");
             input_masukan();
             waktu();
             break;
         case 4:
-            printf ("Pengembalian Dana...\n");
+            printf ("\t\t\t\t\t|=====================|\n");
+            printf ("\t\t\t\t\t|   Pengembalian Dana |\n");
+            printf ("\t\t\t\t\t|=====================|\n");
             input_masukan();
             waktu();
             break;
         case 5:
-            printf ("Upah....\n");
+            printf ("\t\t\t\t\t|=================|\n");
+            printf ("\t\t\t\t\t|       Upah      |\n");
+            printf ("\t\t\t\t\t|=================|\n");
             input_masukan();
             waktu();
             break;
         case 6:
-            printf ("Penjualan....\n");
+            printf ("\t\t\t\t\t|=================|\n");
+            printf ("\t\t\t\t\t|    Penjualan    |\n");
+            printf ("\t\t\t\t\t|=================|\n");
             input_masukan();
             waktu();
             break;
         case 7:
-            printf ("Bonus....\n");
+            printf ("\t\t\t\t\t|=================|\n");
+            printf ("\t\t\t\t\t|      Bonus      |\n");
+            printf ("\t\t\t\t\t|=================|\n");
             input_masukan();
             waktu();
             break;
         case 8:
-            printf ("Voucher....\n");
+            printf ("\t\t\t\t\t|=================|\n");
+            printf ("\t\t\t\t\t|      Voucher    |\n");
+            printf ("\t\t\t\t\t|=================|\n");
             input_masukan();
             waktu();
             break;
         case 9:
-            printf ("Lainnya....\n");
+            printf ("\t\t\t\t\t|=================|\n");
+            printf ("\t\t\t\t\t|      Lainnya    |\n");
+            printf ("\t\t\t\t\t|=================|\n");
             input_masukan();
             waktu();
             break;
@@ -354,12 +375,13 @@ int pemasukan (){
 // Kelas A                                                               //
 //=======================================================================//
 void ceksaldo (){
-
             // Menampilkan pemberitahuan sisa saldo yang di* miliki user pada saat mengakses program
-            printf ("\t\t\t\t\t Saldo pada Bank   : %d\n",*bank);
-            printf ("\t\t\t\t\t Saldo pada kredit : %d\n",*kredit);
-            printf ("\t\t\t\t\t Saldo pada cash   : %d\n",*cash);
-            printf ("\t\t\t\t\t Sisa Total Saldo Anda Adalah  :Rp. %d \n" , *saldo);
+            printf ("\t\t\t\t\t|=======================================================|\n");
+            printf ("\t\t\t\t\t||Saldo pada Bank   : %d\n",*bank);
+            printf ("\t\t\t\t\t||Saldo pada kredit : %d\n",*kredit);
+            printf ("\t\t\t\t\t||Saldo pada cash   : %d\n",*cash);
+            printf ("\t\t\t\t\t||Sisa Total Saldo Anda Adalah  :Rp. %d \n" , *saldo);
+            printf ("\t\t\t\t\t|=======================================================|\n");
             //Pointer saldo akan menyimpan sisa saldo terbaru yang akan di proses kembali apabila ada proses transaksi lagi .
 }
 
@@ -379,7 +401,9 @@ void ceksaldo (){
 // Kelas A                                                               //
 //=======================================================================//
 void input_masukan(){
-        printf ("\t\t\t\t\t Masukkan Banyak Pemasukan Anda :");
+        printf ("\t\t\t\t\t|===================================|\n");
+        printf ("\t\t\t\t\t|| Masukkan Banyak Pemasukan Anda :");
+        printf ("\t\t\t\t\t|===================================|\n");
         scanf  ("%d",&masukan);
         system ("clear");
 }
@@ -400,10 +424,12 @@ void input_masukan(){
 // Kelas A                                                               //
 //=======================================================================//
 void input_transaksi(){
-        printf ("\t\t\t\t\t Masukkan Total Transaksi anda: ");
+        printf ("\t\t\t\t\t|===================================|\n");
+        printf ("\t\t\t\t\t||Masukkan Total Transaksi anda: ");
         scanf  ("%d",&harga );
-        printf ("\t\t\t\t\t Deskripsi: ");
+        printf ("\t\t\t\t\t||Deskripsi: ");
         scanf  ("%s",&Det_Transaksi[50]);
+        printf ("\t\t\t\t\t|===================================|\n");
         system ("clear");
 }
 
@@ -422,10 +448,10 @@ void input_transaksi(){
 // Kelas A                                                               //
 //=======================================================================//
 void error_alert(){
-    printf   ("\t\t\t\t\t ===============================================  \n");
-    printf   ("\t\t\t\t\t ||     Pilihan yang Anda masukan Salah!!!     || \n");
-    printf   ("\t\t\t\t\t ||   Silahkan Memilih Pilihan yang Sudah ada  || \n");
-    printf   ("\t\t\t\t\t ===============================================  \n");
+    printf   ("\t\t\t\t\t===============================================  \n");
+    printf   ("\t\t\t\t\t||     Pilihan yang Anda masukan Salah!!!     || \n");
+    printf   ("\t\t\t\t\t||   Silahkan Memilih Pilihan yang Sudah ada  || \n");
+    printf   ("\t\t\t\t\t===============================================  \n");
 }
 
 //=======================================================================//
@@ -457,9 +483,10 @@ void menu_program(){
     printf ("\t\t\t\t\t|   1   |    MENU                                |\n");
     printf ("\t\t\t\t\t|   2   |    EXIT                                |\n");
     printf ("\t\t\t\t\t|================================================|\n"); 
-
+    printf ("\t\t\t\t\t|================================================|\n");
     printf ("\n\t\t\t\t\t Masukan Pilihan Anda => ");
     scanf  ("%d",&pilihanmenu);
+    printf ("\t\t\t\t\t|================================================|\n");
     system ("clear");
 
     // pada switch case bagian ini , disini akan memproses dari inputan yang sudah dimasukkan oleh user pada proses pemiihan pemilihan menu sebelumnya dan mengantarkan program pada fungsi yang merupakan panggilan dari pilihan yang di inputkan oleh user.
@@ -516,9 +543,10 @@ void menu_masuk(){
     printf ("\t\t\t\t\t|   2   |    Registrasi                          |\n");
     printf ("\t\t\t\t\t|   3   |    Exit                                |\n");
     printf ("\t\t\t\t\t|================================================|\n");
-
-    printf ("\t\t\t\t\t Masukkan pilihan Anda => ");
+    printf ("\t\t\t\t\t|================================================|\n");
+    printf ("\t\t\t\t\t|| Masukkan pilihan Anda => ");
     scanf  ("%d", &pilihan);
+    printf ("\t\t\t\t\t|================================================|\n");
     // Membersihkan Layar terminal 
     system ("clear");
 
@@ -586,28 +614,40 @@ void masuk(){
     // Memperlihatkan tanggal login
     waktu();
     // Instruksi untuk LOGIN
-
-    printf ("\t\t\t\t\t LOGIN\n");
-    printf ("\t\t\t\t\t Username: ");
+    printf ("\t\t\t\t\t||=============||\n");
+    printf ("\t\t\t\t\t|| LOGIN\n");
+    printf ("\t\t\t\t\t||=============||\n");
+    printf ("\t\t\t\t\t|| Username: ");
     scanf  ("%s", username);
-    printf ("\t\t\t\t\t Password: ");
+    printf ("\t\t\t\t\t||=============||\n");
+    printf ("\t\t\t\t\t|| Password: ");
     scanf  ("%s", password);
+    printf ("\t\t\t\t\t||=============||\n");
     system ("clear");
     // Membeaca file "logRecord.txt"
     while(fread(&u,sizeof(u),1,record)){
         /*  Mengkomparasi username serta password yang diinput pengguna kedalam fungsi
             masuk() dengan username serta password yang sudah terdaftar */
         if(strcmp(username, u.username)==0 && strcmp(password, u.password)==0){
-            printf("\n\t\t\t\t\t Login Berhasil!\n");
+            printf ("\t\t\t\t\t|==================|\n");
+            printf ("\t\t\t\t\t|| Login Berhasil!||\n");
+            printf ("\t\t\t\t\t|==================|\n");
+
         }
         //  Jika akun tidak terdaftar maka akan diberikan pilihan untuk mendaftar atau keluar dari program
         else {
-            printf("\n\t\t\t\t\t Akun tidak terdaftar!\n");
+            printf ("\t\t\t\t\t|=====================||\n");
+            printf ("\t\t\t\t\t||Akun tidak terdaftar!\n");
+            printf ("\t\t\t\t\t|=====================||\n");
+
             instruksi:
-            printf("\t\t\t\t\t Ketik 1 untuk daftar");
-            printf ("\n\t\t\t\t\t Ketik 2 untuk masuk ulang");
-            printf ("\n\t\t\t\t\t Ketik 3 untuk EXIT\n");
-            printf("\n\t\t\t\t\t Pilihan: ");
+            printf ("\t\t\t\t\t||=============||\n");
+            printf ("\t\t\t\t\t|| Ketik 1 untuk daftar");
+            printf ("\n\t\t\t\t\t||Ketik 2 untuk masuk ulang");
+            printf ("\n\t\t\t\t\t||Ketik 3 untuk EXIT\n");
+            printf ("\t\t\t\t\t||=============||\n");
+            printf ("\n\t\t\t\t\t||Pilihan: ");
+            printf ("\t\t\t\t\t||=============||\n");
             scanf ("%d", &pilihan);
             system ("clear");
             // Jika pengguna mengetik nomor 1 maka akan dialihkan kepada fungsi daftar
@@ -663,12 +703,13 @@ void daftar(){
 
     // Instruksi untuk menginput nama
     printf("\n\t\t\t\t\t Silahkan registrasi akun anda!\n\n");
-    printf("\t\t\t\t\t Nama Panggilan: ");
-    scanf ("%s", u.nama);
+    getchar();
+    printf("\t\t\t\t\t Nama Lengkap: ");
+    gets(u.nama);
     printf("\t\t\t\t\t Email anda: ");
     scanf ("%s", u.email);
-    printf("\n\t\t\t\t\t Hallo %s!\n");
-    printf ("\t\t\t\t\t Silahkan membuat username (max 12 karakter) serta membuat password (max 10 karakter)\n", u.nama);
+    printf("\n\t\t\t\t\t Hallo %s!\n", u.nama);
+    printf ("\t\t\t\t\t Silahkan membuat username (max 12 karakter) serta membuat password (max 10 karakter)\n");
 
     // Instruksi untuk menginput username serta password
     printf("\n\t\t\t\t\t Enter Username:");
@@ -760,31 +801,31 @@ void daftarwishlist(){
     switch(pilihanTarget)
     {
     case 1 :
-        printf ("\t\t\t\t\t Pendidikan \n ");
+        printf ("Pendidikan \n ");
         wish_list();
     break;
     case 2 :
-        printf ("\t\t\t\t\t Rumah \n ");
+        printf ("Rumah \n ");
         wish_list();
     break;
     case 3 :
-        printf ("\t\t\t\t\t Liburan  \n");
+        printf ("Liburan  \n");
         wish_list();
     break;
     case 4 :
-        printf ("\t\t\t\t\t Kesehatan \n ");
+        printf ("Kesehatan \n ");
         wish_list();
     break;
     case 5 :
-        printf ("\t\t\t\t\t Investasi \n ");
+        printf ("Investasi \n ");
         wish_list();
     break;
     case 6 :
-        printf ("\t\t\t\t\t Kendaraan \n ");
+        printf ("Kendaraan \n ");
         wish_list();
     break;
     case 7 :
-        printf ("\t\t\t\t\t Elektronik \n ");
+        printf ("Elektronik \n ");
         wish_list();
     break;
     system ("clear");
@@ -827,10 +868,10 @@ akhir :
             daftarwishlist();
             break;
         case 2:
-            printf ("\t\t\t\t\t Terima kasih\n");
+            printf ("Terima kasih\n");
             break;
         default:;
-            printf ("\t\t\t\t\t Perhatikan angka yang anda inputkan!\n");
+            printf ("Perhatikan angka yang anda inputkan!\n");
             goto akhir;
             break;
     }
@@ -855,10 +896,14 @@ akhir :
 // Kelas A                                                               //
 //=======================================================================//
 void wish_list(){
-        printf ("\t\t\t\t\t Deskripsi :");
+        printf ("\t\t\t\t\t||=====================||\n");
+        printf ("\t\t\t\t\t||    Deskripsi :");
+        printf ("\t\t\t\t\t||=====================||\n");
         scanf  ("%[^\n]%*c", namaTarget);
-        printf ("\t\t\t\t\t Kisaran Harga :");
+        printf ("\t\t\t\t\t|=====================||\n");
+        printf ("\t\t\t\t\t||    Kisaran Harga :");
         scanf  ("%d",&hargaBarangDiinginkan);
+        printf ("\t\t\t\t\t||=====================||\n");
         system ("clear");
 }
 
@@ -883,18 +928,12 @@ int DanaDarurat (int *saldo){
     //Deklarasi variabel int dana untuk menyimpan nilai dari Dana yang harus dipersiapkan
     //int dana menyimpan nilai dari perhitungan nilai saldo yang diinput oleh user
     int dana = *saldo * 0.3;
-
-        printf ("\t\t\t\t\t|=================================================================|\n");
-        printf ("\t\t\t\t\t|  Dalam Manajemen Keungangan Anda harus diperlukan Dana Darurat  |\n");
-        printf ("\t\t\t\t\t|Mengapa ?\nKarena agar finansial bisa siap dalam keadaan darurat,
-        |\n")
-        printf ("Untuk itu maka diperlukan Dana Darurat yang disarankan yaitu\n30 persen dari saldo yang dimilki \n");
-        printf ("\t\t\t\t\t|=================================================================|\n");
-
-        printf ("Dalam Manajemen Keungangan Anda harus diperlukan Dana Darurat\n");
-        printf ("Mengapa ?\nKarena agar finansial bisa siap dalam keadaan darurat,\n");
-        
-        printf ("Jadi Dana Darurat yang harus ditabung untuk saat ini adalah: %d\n", dana);
+        printf ("\t\t\t\t\t||================================================================||\n");
+        printf ("\t\t\t\t\t|| Dalam Manajemen Keungangan Anda harus diperlukan Dana Darurat\n");
+        printf ("\t\t\t\t\t|| Mengapa ?\nKarena agar finansial bisa siap dalam keadaan darurat,\n");
+        printf ("\t\t\t\t\t|| Untuk itu maka diperlukan Dana Darurat yang disarankan yaitu\n30 persen dari saldo yang   dimilki\n");
+        printf ("\t\t\t\t\t|| Jadi Dana Darurat yang harus ditabung untuk saat ini adalah: %d\n", dana);
+        printf ("\t\t\t\t\t||================================================================||\n");         
     //untuk mengubah nilai saldo jika user memilih fungsi DanaDarurat yang akan menjadi saldo = saldo - dana
     saldo = saldo - dana ;
     return dana;
@@ -916,19 +955,24 @@ int DanaDarurat (int *saldo){
 //=======================================================================//
 int inputSaldo(char x[]){
         //Pada bagian ini user diminta untuk memasukkan jumlah saldo yang di miliki sebagai starter dalam program manajemen keuangan ini
-        printf   ("\t\t\t\t\t Masukan Saldo\n");
+        printf ("\t\t\t\t\t||=============||\n");
+        printf ("\t\t\t\t\t||Masukan Saldo||\n");
+        printf ("\t\t\t\t\t||=============||\n");
         //Instruksi untuk menginput nilai saldo
         printf ("\t\t\t\t\t #NOTE : Jika tidak memiki Saldo pada Akun dibawah ini Ketik 0\n\n\n");
-        printf ("\t\t\t\t\t Ketik Saldo Pada Akun Bank         : ");
+        printf ("\t\t\t\t\t||==================================||\n");
+        printf ("\t\t\t\t\t||Ketik Saldo Pada Akun Bank         : ");
         scanf  ("%d", &a1.akunBank);
-        printf ("\t\t\t\t\t Ketik Saldo Pada Akun Credit Card  : ");
+        printf ("\t\t\t\t\t||Ketik Saldo Pada Akun Credit Card  : ");
         scanf  ("%d", &a1.akunCreditCard);
-        printf ("\t\t\t\t\t Ketik Saldo Pada Akun Tabungan Cash: ");
+        printf ("\t\t\t\t\t||Ketik Saldo Pada Akun Tabungan Cash: ");
         scanf  ("%d", &a1.cash);
+        printf ("\t\t\t\t\t||==================================||\n");
 
     //Deklarasi Variabel untuk menjumlahkan nilai accout
         saldoDimiliki = a1.akunBank + a1.akunCreditCard + a1.cash;
-        printf ("Total Saldo yang dimiliki %d\n", saldoDimiliki);
+        printf ("\t\t\t\t\t||Total Saldo yang dimiliki %d\n", saldoDimiliki);
+        printf ("\t\t\t\t\t||==================================||\n");
 
     //Deklarasi Tipe Data File dengan pointer *us
     FILE *us; //pointerReport pada trackRecord
@@ -961,9 +1005,12 @@ int inputSaldo(char x[]){
 void waktu(){
     time( & waktuserver);
     struct tm * waktu = localtime( & waktuserver);
-    printf("\t\t\t\t\t Tanggal: %i/%i/%i\n\n", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900);
-}
+    printf("\t\t\t\t\t||=================================================||\n");
+    printf("\t\t\t\t\t||================Tanggal: %i/%i/%i==============||\n", waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900);
+    printf("\t\t\t\t\t||=================================================||\n");
 
+}
+ 
 //=======================================================================//
 //***********   Fungsi Untuk Menampilkan Pilihan transaksi  *************//
 //=======================================================================//
@@ -1003,18 +1050,20 @@ bayar metode_pembayaran (bayar md){
     printf ("\t\t\t\t\t|   2   |    Akun Credit Card                    |\n");
     printf ("\t\t\t\t\t|   3   |    Cash                                |\n");
     printf ("\t\t\t\t\t|================================================|\n");
- 
-    printf ("\n\t\t\t\t\t Masukkan Metode Pembayaran :");
+    
+    printf ("\t\t\t\t\t|================================================|");
+    printf ("\n\t\t\t\t\t|| Masukkan Metode Pembayaran :");
     scanf  ("%d",&metode);
 
         switch (metode){
         case 1:
-            printf ("Akun Bank\n");
-            printf ("Masukkan harga barang :");
+            printf ("\t\t\t\t\t||Akun Bank\n");
+            printf ("\t\t\t\t\t||Masukkan harga barang :");
             scanf  ("%d",&md.bank);
             if (*bank < md.bank){
-                printf ("Saldo yang anda miliki pada akun Bank kurang dari jumlah transaksi\n");
-                printf ("Silahkan coba dengan metode pembayaran lain\n");
+                printf ("\t\t\t\t\t||Saldo yang anda miliki pada akun Bank kurang dari jumlah transaksi\n");
+                printf ("\t\t\t\t\t||Silahkan coba dengan metode pembayaran lain\n");
+                printf ("\t\t\t\t\t|================================================|");
                 goto metode;
             }
             else{
@@ -1026,12 +1075,13 @@ bayar metode_pembayaran (bayar md){
 
             break;
         case 2:
-            printf ("Akun credit card\n");
-            printf ("Masukkan harga barang :");
+            printf ("\t\t\t\t\t||Akun credit card\n");
+            printf ("\t\t\t\t\t||Masukkan harga barang :");
             scanf  ("%d",&md.bank);
             if (*kredit < md.bank){
-                printf ("Saldo yang anda miliki pada akun kredit kurang dari jumlah transaksi\n");
-                printf ("Silahkan coba dengan metode pembayaran lain\n");
+                printf ("\t\t\t\t\t||Saldo yang anda miliki pada akun kredit kurang dari jumlah transaksi\n");
+                printf ("\t\t\t\t\t||Silahkan coba dengan metode pembayaran lain\n");
+                printf ("\t\t\t\t\t|================================================|");
                 goto metode;
             }
             else{
@@ -1042,12 +1092,13 @@ bayar metode_pembayaran (bayar md){
             }
             break;
         case 3:
-            printf ("Cash\n");
-            printf ("Masukkan harga barang :");
+            printf ("\t\t\t\t\t||Cash\n");
+            printf ("\t\t\t\t\t||Masukkan harga barang :");
             scanf  ("%d",&md.bank);
             if (*cash < md.bank){
-                printf ("Saldo cash yang anda miliki kurang dari jumlah transaksi\n");
-                printf ("Silahkan coba dengan metode pembayaran lain\n");
+                printf ("\t\t\t\t\t||Saldo cash yang anda miliki kurang dari jumlah transaksi\n");
+                printf ("\t\t\t\t\t||Silahkan coba dengan metode pembayaran lain\n");
+                printf ("\t\t\t\t\t|================================================|");
                 goto metode;
             }
             else{
@@ -1059,11 +1110,11 @@ bayar metode_pembayaran (bayar md){
             break;
         //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
         default:
-            printf   ("Pilihan yang Anda masukan Salah!!!\n");
-            printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
-            printf   ("=========================================");
+            printf   ("\t\t\t\t\t||Pilihan yang Anda masukan Salah!!!\n");
+            printf   ("\t\t\t\t\t||Silahkan Memilih Pilihan yang Sudah ada\n");
+            printf   ("\t\t\t\t\t|=========================================|");
             break;
-            system ("clear");
+            system ("\t\t\t\t\tclear");
         }
     return md;
 }
@@ -1111,51 +1162,64 @@ int transaksi (){
         //pada case 1 dari menu switch(kategori), memiliki syntax switch case lagi di dalamnya, dimana disini berfungsi untuk meneksekusi inputan dari pilihan yang dimasukkan oleh user pada pilihan kategori transaksi sebelumnya.
         //dalam case 1 ini mengeksekusi perintah jika user memilih kategori makanan pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 1:
-            printf ("Makanan....\n");
+            printf ("\t\t\t\t\t|============|\n");
+            printf ("\t\t\t\t\t| Makanan    |\n");
+            printf ("\t\t\t\t\t|============|\n");
             metode_pembayaran (md);
             waktu();
             break;
 
         //dalam case 2 ini mengeksekusi perintah jika user memilih kategori Transportasi pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 2:
-            printf ("Transportasi....\n");
+            printf ("\t\t\t\t\t|============|\n");
+            printf ("\t\t\t\t\t|Transportasi|\n");
+            printf ("\t\t\t\t\t|============|\n");
             metode_pembayaran (md);
             waktu();
             break;
 
         //dalam case 3 ini mengeksekusi perintah jika user memilih kategori Fashion pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 3:
-            printf ("Fashion....\n");
+            printf ("\t\t\t\t\t|============|\n");
+            printf ("\t\t\t\t\t|   Fashion  |\n");
+            printf ("\t\t\t\t\t|============|\n");
             metode_pembayaran (md);
             waktu();
             break;
 
         //dalam case 4 ini mengeksekusi perintah jika user memilih kategori Rumah Tangga pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 4:
-            printf ("Rumah Tangga....\n");
+            printf ("\t\t\t\t\t|============|\n");
+            printf ("\t\t\t\t\t|Rumah Tangga|\n");
+            printf ("\t\t\t\t\t|============|\n");
             metode_pembayaran (md);
             waktu();
             break;
 
         //dalam case 5 ini mengeksekusi perintah jika user memilih kategori Pendidikan pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 5:
-            printf ("Pendidikan....\n");
+            printf ("\t\t\t\t\t|============|\n");
+            printf ("\t\t\t\t\t| Pendidikan |\n");
+            printf ("\t\t\t\t\t|============|\n");
             metode_pembayaran (md);
             waktu();
             break;
 
         //dalam case 6 ini mengeksekusi perintah jika user memilih kategori Lainnya pada pemilihan kategori transaksi, dimana disini user akan diminta untuk memasukkan harga dan detail tambahan untuk transaksi yang sudah di lakukan oleh user.
         case 6:
-            printf ("Lainnya....\n");
+            printf ("\t\t\t\t\t|============|\n");  
+            printf ("\t\t\t\t\t| Lainnya    |\n");
+            printf ("\t\t\t\t\t|============|\n");
             metode_pembayaran (md);
             waktu();
             break;
 
         //Jika user menginput pilihan yang salah, atau menginput nilai yang tidak ada pada tampilan menu maka program akan mengesekusi pada bagian default seperti di bawah ini:
         default:
-            printf   ("Pilihan yang Anda masukan Salah!!!\n");
-            printf   ("Silahkan Memilih Pilihan yang Sudah ada\n");
-            printf   ("=========================================");
+            printf   ("\t\t\t\t\t|=========================================|\n");
+            printf   ("\t\t\t\t\t|Pilihan yang Anda masukan Salah!!!       |\n");
+            printf   ("\t\t\t\t\t|Silahkan Memilih Pilihan yang Sudah ada  |\n");
+            printf   ("\t\t\t\t\t|=========================================|\n");
             break;
         }
     total  = *saldo - harga;
@@ -1173,7 +1237,8 @@ void header (){
 	printf  ("\t\t\t\t\t||               2. Gede Rico Wijaya              ||\n");
 	printf  ("\t\t\t\t\t||                3. I Gede Himawan               ||\n");
 	printf  ("\t\t\t\t\t====================================================\n");
-	printf  ("\t\t\t\t\t         Tekan apa saja untuk melanjutkan....       \n");
-	
-	system  ("clear");
+	printf  ("\t\t\t\t\t         Tekan ENTER  untuk melanjutkan....    \n");
+    printf  ("\t\t\t\t\t====================================================\n");
+	getchar ();
+    system ("clear");
 }
