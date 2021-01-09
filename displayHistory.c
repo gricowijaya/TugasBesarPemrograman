@@ -61,13 +61,13 @@ void error_alert(){
 // Deskripsi      : Fungsi ini ditujukan untuk menampilkan data yang     //
 //                  dimasukan oleh user yaitu berupa nama yang ada pada  //
 //                  logRecord.txt                                        //
-// Versi : 1.0                                      Rev. 1               //
-// Tgl: 30-11-2020                                  Tgl: 19-11-2020      //
+// Versi : 1.0                                      Rev. 2               //
+// Tgl: 30-11-2020                                  Tgl: 8-01-2021       //
 // Gede Rico Wijaya - 2005551091                                         //
 // Revisi : Menghapuskan display nomor telepon karena tidak diperlukan   //
+// Revisi2: Menambahkan display saldo yang dimiliki oleh pengguna        //
 // Kelas A                                                               //
 //=======================================================================//
-
 void record(User u, char file[] ){
     time( & waktuserver);
     struct tm * waktu = localtime( & waktuserver);
@@ -82,11 +82,11 @@ void record(User u, char file[] ){
 
     //Menampilkan hasil dari Record nama user dan nomor telepon yang diinput oleh user
     //Menampilkan hasil dari Record nama user dan nomor telepon yang diinput oleh user
-    printf("\t\t\t\t\t|=========================================|\n");
-    printf("\t\t\t\t\tNama\tUsername\tTanggal\n");
-    printf("\t\t\t\t\t%s\t%s\t%i-%i-%i-\n",u.nama, u.username, waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900);
-    printf("\t\t\t\t\t|=========================================|\n");
-
+    printf("\t\t|==========================================================================================|\n");
+    printf("\t\t|                                             RECORD                                       |\n");
+    printf("\t\t\tNama\t\t||Username\t||Tanggal\t||S.Bank\t||S. Credit\t||S.Cash\n");
+    printf("\t\t%s\t||%s\t||%i-%i-%i-\t",u.nama, u.username, waktu -> tm_mday, waktu -> tm_mon + 1, waktu -> tm_year + 1900);
+    printf("||%d\t\t||%d\t\t||%d\n\n", a1.akunBank,a1.akunCreditCard,a1.cash);
 }
 
 //=======================================================================//
